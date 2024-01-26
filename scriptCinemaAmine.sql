@@ -230,7 +230,8 @@ FROM film
 INNER JOIN realisateur ON film.id_real = realisateur.id_real
 INNER JOIN personne ON realisateur.id_personne = personne.id_personne
 
-
+-- peut valoir ce qu'on veut
+WHERE id_film = 1
 
 
 
@@ -253,8 +254,7 @@ FROM film
 INNER JOIN realisateur ON film.id_real=realisateur.id_real
 INNER JOIN personne ON realisateur.id_personne=personne.id_personne
 
-WHERE personne.nom LIKE 'Coppola'
-
+WHERE realisateur.id_real = 2
 
 
 
@@ -284,8 +284,9 @@ FROM film
 INNER JOIN realisateur ON film.id_real=realisateur.id_real
 INNER JOIN personne ON realisateur.id_personne=personne.id_personne
 
-GROUP BY film.id_film
+GROUP BY realisateur.id_real
 ORDER BY nombre_de_films desc
+
 
 
 
@@ -320,7 +321,7 @@ INNER JOIN role ON casting.id_role = role.id_role
 INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
 INNER JOIN personne ON acteur.id_personne = personne.id_personne
 
-WHERE acteur.id_acteur LIKE 2
+WHERE acteur.id_acteur = 2
 
 
 
