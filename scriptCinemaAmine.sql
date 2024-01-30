@@ -392,7 +392,7 @@ INNER JOIN casting ON film.id_film = casting.id_film
 INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
 INNER JOIN personne ON acteur.id_personne = personne.id_personne
 
-WHERE film.id_film LIKE 1
+WHERE film.id_film = 1
 
 
 

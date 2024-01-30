@@ -16,6 +16,7 @@ ob_start();
             <th>ANNEE DE SORTIE</th>
         </tr>
     </thead>
+
     <tbody>
         <?php 
         foreach($requete->fetchAll() as $film) { ?>
@@ -30,6 +31,7 @@ ob_start();
                     <td><?= $film['date_sortie_france']?></td>
                 </tr>
         <?php } ?>
+        
     </tbody>
 </table>
 </div>
@@ -37,7 +39,7 @@ ob_start();
 <?php 
 
 $titre = "Cinephyle";
-$titre_secondaire = "";
+$titre_secondaire = "Liste des films";
 $content = ob_get_clean();
 require 'view/template.php'; 
 
