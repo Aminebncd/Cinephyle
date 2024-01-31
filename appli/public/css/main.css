@@ -1,0 +1,197 @@
+* {
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;;
+  }
+  
+  #wrapper {
+    padding-top: 100px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+    background: linear-gradient(180deg, rgba(18,42,70,1) 0%, rgba(5,5,7,1) 100%);
+    padding: 100px 10%;
+    transition: 1s;
+  }
+
+  nav {
+    background-color: #000000;
+    padding: 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: flex-end;
+}
+
+
+
+  /* +++++++++++++++++++++++ACCUEIL++++++++++++++++++++++++++++++++++ */
+
+.textLanding {
+  text-align: center;
+}
+
+  .h1Landing {
+    font-size: 30px;
+  }
+
+  .pLanding {
+    margin-top: -15px;
+    font-size: 25px;
+    color: #c2c2c2;
+  }
+
+
+
+
+
+
+
+
+
+    /* +++++++++++++++++++++FILMS+++++++++++++++++++++++++++++ */
+
+
+
+  /* LIST FILMS */
+
+  .wrapList {
+    display: flex;
+    flex-direction: row;
+    padding-top: 100px;
+    align-items: center;
+
+  }
+  
+  .filmLink {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .filmLink:visited {
+    color: #ffffff;
+  }
+  
+  .filmContainer {
+    /* padding: 100px; */
+    display: flex;
+    flex-direction: row;
+    overflow: hidden; /* Cache la barre de défilement, elle sera gérée par JavaScript */
+    /* transition: 1s; */
+    scroll-behavior: smooth;
+
+  }
+  
+  .filmList {
+    display: flex;
+    flex-direction: row;
+    transition: 1s;
+
+  }
+  
+  .afficheList {
+    /* display: flex; */
+    max-height: 300px ;
+    width: auto;
+    transition: 1s;
+    border-radius: 10px 10px 0 0;
+
+  }
+  
+  
+  .filmCard {
+    /* height: 80%;
+    width: auto; */
+    transition: 1s;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .scrollButton {
+    display: flex;
+    background-color: rgba(1, 3, 19, 0.815);
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    height: 35px;
+    border-radius: 25px;
+    align-items: center;
+
+  }
+
+  .scrollButton:hover {
+    background-color: gray;
+  }
+  
+  
+  .filmPoster {
+    border-radius: 10px;
+
+  }
+
+
+  .filmTitle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.712);
+    overflow: hidden;
+    transition: 1s;
+    border-radius: 0 0 10px 10px ;
+  }
+
+
+
+
+  /* FILM DETAILS */
+  .filmDetails {
+    padding-top: 50px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .afficheDet {
+    /* display: flex; */
+    max-height: 700px ;
+    width: auto;
+  }
+
+  .detTitre {
+    padding-top: 20px ;
+  }
+
+  .corps {
+    padding-top: 80px ;
+
+  }
+
+  .resume {
+    padding-top: 20px;
+    text-align: justify;
+  }
+
+  .cast {
+    padding-top: 20px;
+  }

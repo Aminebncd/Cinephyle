@@ -4,7 +4,7 @@ namespace Controller;
 
 use Model\Connect;
 
-class CinemaController {
+class FilmController {
 
     // lister les films
     public function listFilms() {
@@ -12,7 +12,7 @@ class CinemaController {
         $pdo = Connect::seConnecter();
         
         $requete = $pdo->query("
-            SELECT id_film, titre, date_sortie_france
+            SELECT id_film, titre, affiche
             FROM film
         ");
 
@@ -25,6 +25,7 @@ class CinemaController {
         $requeteFilm = $pdo->prepare("
             SELECT 
             
+            affiche,
             titre, 
             date_sortie_france, 
             resume, 

@@ -2,13 +2,15 @@
 
 ob_start();
 
-use Controller\CinemaController;
+use Controller\FilmController;
+use Controller\AccueilController;
 
 spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
 
-$ctrlCinema = new CinemaController();
+$ctrlFilm = new FilmController();
+$ctrlAccueil = new AccueilController();
 
 $id = (isset($_GET["id"])) ? $_GET['id'] : null;
 
@@ -18,8 +20,8 @@ if (isset($_GET['action'])) {
     switch ($_GET['action']) {
 
         // FILM //
-        case "listFilms": $ctrlCinema->listFilms(); break;
-        case "detailsFilm": $ctrlCinema->detailsFilm($id); break;
+        case "listFilms": $ctrlFilm->listFilms(); break;
+        case "detailsFilm": $ctrlFilm->detailsFilm($id); break;
 
         // ACTEURS //
         case "listActeurs": $ctrlCinema->listActeurs(); break;
@@ -30,28 +32,13 @@ if (isset($_GET['action'])) {
         // case "detailsReal": $ctrlCinema->detailsFilm($id); break;
 
             
-        
-            
         default:
-            
-            break;
+        break;
     }
-
+    
 } else {
-    $titre = 'Cinephyle';
-    $titre_secondaire = "Accueil";
-    $content = ob_get_clean();
-    require 'view/template.php'; 
+    $ctrlAccueil->landing();
 }
 ?>
 
 
-
-<div class="container"><br><br>
-
- <a href="index.php">Accueil</a><br>
- <a href="index.php?action=listFilms">Liste des films</a><br>
- <a href="index.php?action=listActeurs">Liste des acteurs</a><br>
- <a href="index.php?action=listReals">Liste des réalisateurs</a><br>
-
-</div>
