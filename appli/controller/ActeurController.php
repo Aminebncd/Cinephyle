@@ -15,7 +15,8 @@ class ActeurController {
             SELECT id_acteur, 
             CONCAT (
                 prenom, ' ', nom
-                ) AS nom
+                ) AS nom,
+            portrait
 
             FROM acteur
 
@@ -51,6 +52,7 @@ class ActeurController {
             id_acteur,
             date_sortie_france,
             role, 
+            role.id_role,
             titre
 
             FROM casting

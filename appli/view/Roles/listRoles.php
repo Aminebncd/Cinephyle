@@ -36,6 +36,12 @@ $titre_secondaire = "Liste des rôles";
     </table>
 </div>
 
+<div class="miaou">
+    
+    <h3 >AJOUTEZ UN ROLE</h3>
+    <a href="index.php?action=ajoutRole">test</a>
+</div>
+
 
 <?php 
 

@@ -43,10 +43,11 @@ if (isset($_GET['action'])) {
         case "listGenres": $ctrlGenre->listGenres(); break;
         case "detailsGenre": $ctrlGenre->detailsGenre($id); break;
         case "ajoutGenre": $ctrlGenre->ajoutGenre(); break;
-
+        
         // ROLES //
         case "listRoles": $ctrlRole->listRoles(); break;
         case "detailsRole": $ctrlRole->detailsRole($id); break;
+        case "ajoutRole": $ctrlRole->ajoutRole(); break;
 
         // MODIFICATIONS //
             

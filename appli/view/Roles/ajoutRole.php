@@ -1,7 +1,7 @@
 <?php
 ob_start();
 $titre = 'Cinephyle';
-$titre_secondaire = "Formulaire d'ajout de genre";
+$titre_secondaire = "Formulaire d'ajout de role";
 ?>
 
 
@@ -10,10 +10,10 @@ $titre_secondaire = "Formulaire d'ajout de genre";
 
         <h1><?= $titre_secondaire ?></h1>
 
-        <form action="index.php?action=ajoutGenre" method="POST">
+        <form action="index.php?action=ajoutRole" method="POST">
             <div>
-                <label for="nomGenre">Libelle du genre :</label>
-                <input type="text" class="form-control" name="libelle" id="libelleGenre">
+                <label for="intituleRole">intitullé du role :</label>
+                <input type="text" class="form-control" name="intitule" id="intituleRole">
             </div>
             <input type="submit" value="Ajouter" name="submit">
         </form>

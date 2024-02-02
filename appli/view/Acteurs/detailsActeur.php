@@ -24,7 +24,7 @@ $titre_secondaire = "Détail de l'acteur";
         <?php $roles = $requeteRoles->fetchAll(); 
         // var_dump($casting);
         foreach($roles as $role) { ?>
-            <p><?= $role['role'] ?> dans <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $role['id_film']?>"><?= $role['titre'] ?> (<?= $role['date_sortie_france'] ?>)</a></p>
+            <p><a class="filmLink" href="index.php?action=detailsRole&id=<?= $role['id_role'] ?>"><?= $role['role'] ?></a> dans <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $role['id_film']?>"><?= $role['titre'] ?> (<?= date('Y', strtotime($role['date_sortie_france'])) ?>)</a></p>
             
         <?php }  ?>
     <?php } else { ?>

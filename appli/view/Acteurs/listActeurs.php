@@ -20,7 +20,7 @@ $titre_secondaire = "Liste des acteurs";
                 <div class="filmCard">
                     <a class="filmLink" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur']?>">
                     
-                    <img class="afficheList" src="" alt="" > 
+                    <img class="afficheList" src="<?= $acteur['portrait'] ?>" alt="<?= $acteur['portrait'] ?>" > 
                     <div class="filmTitle">   
                         <?= $acteur['nom']?>    
                     </div>   

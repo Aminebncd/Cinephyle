@@ -60,4 +60,25 @@ class RoleController {
 
             require "view/Roles/detailsRole.php";
         }
+
+        public function ajoutRole() {
+
+            if(isset($_POST["submit"])) {
+
+                $pdo = Connect ::seConnecter();
+                
+                $intitule = filter_input(INPUT_POST, "intitule", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+              
+                if ($intitule) {
+                    
+                    $requeteAjout = $pdo->prepare("
+                    INSERT INTO genre (intitule) VALUES (:intitule)
+                    ");
+                    $requeteAjout->execute([":intitule" => $intitule]);
+    
+                    header("Location: index.php?action=listRoles");
+                }
+            }
+            require "view/Roles/ajoutRole.php";
+        }
 }

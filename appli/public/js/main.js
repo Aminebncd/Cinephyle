@@ -10,6 +10,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const dots = document.querySelectorAll('.scrolling-dot');
+    const wrapper = document.querySelector('.scrolling-wrapper');
 
     let currentIndex = 0;
 
@@ -21,9 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
         dots[currentIndex % dots.length].classList.add('active');
 
         currentIndex++;
-    }, 10000);
-});
+    }, 8000);
 
+    // Pause l'animation lorsqu'on survole la zone de défilement
+    wrapper.addEventListener('mouseover', () => {
+        const cards = document.querySelectorAll('.scrolling-card');
+        cards.forEach(card => card.style.animationPlayState = 'paused');
+    });
+
+    // Reprise de l'animation lorsqu'on quitte la zone de défilement
+    wrapper.addEventListener('mouseout', () => {
+        const cards = document.querySelectorAll('.scrolling-card');
+        cards.forEach(card => card.style.animationPlayState = 'running');
+    });
+});
 
 
 // ++++++++++++++FILMS++++++++++++++++++++++++++++++++++++

@@ -25,14 +25,14 @@ $titre_secondaire = "Détails du film";
 
             <p><strong>Note :</strong> <?= $film['note'] ?></p>
 
-            <p><strong>genre(s) :</strong>
+            <p><strong>genre(s) : <br></strong>
             <?php $genres = $requeteGenre->fetchAll(); 
             foreach($genres as $genre) { ?>
                 <a class="filmLink" href="index.php?action=detailsGenre&id=<?= $genre['id_genre'] ?>"><?= $genre['libelle'] ?></a>
             <?php } ?>
             </p>
 
-            <p class="resume"><strong>Résumé :</strong> <?= $film['resume'] ?></p>
+            <p class="resume"><strong>Résumé : <br><br></strong> <?= $film['resume'] ?></p>
         </div>
 
         <h3 class="cast">Distribution des rôles :</h3>

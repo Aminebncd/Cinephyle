@@ -36,7 +36,13 @@ $titre_secondaire = "Liste des genres";
     </table>
 </div>
 
-<a href="index.php?action=ajoutGenre">test</a>
+
+
+<div class="miaou">
+    
+    <h3 >AJOUTEZ UN GENRE</h3>
+    <a href="index.php?action=ajoutGenre">test</a>
+</div>
 
 
 <?php 
