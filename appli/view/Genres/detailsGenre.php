@@ -4,10 +4,10 @@ session_start();
 ob_start(); 
 
 $titre = "Cinephyle";
-$titre_secondaire = "Liste des films";
+$titre_secondaire = "Liste des films contenant le genre :";
 ?>
 
-<h1><?= $titre_secondaire ?></h1>
+<h1><a class="nav-link" href="index.php?action=listFilms"><?= $titre_secondaire ?></a></h1>
 
 
 <div>
@@ -15,7 +15,7 @@ $titre_secondaire = "Liste des films";
 
         <thead>
             <tr>
-                <th scope="row" colspan="2">Genre</th>
+                <th scope="row" colspan="2"><?= $requeteNomGenre->fetch()['libelle']?></th>
                 
             </tr>
         </thead>

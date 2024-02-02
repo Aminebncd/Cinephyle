@@ -36,7 +36,7 @@ $titre_secondaire = "Retrouvez toutes les infos sur vos films favoris.";
     <div class="accueilCardDeux">
         <a class="nav-link" href="index.php?action=listActeurs">Acteurs</a>
         <div class="darkened-image"></div>
-        <!-- <img class="cardImage" src="https://static.cnews.fr/sites/default/files/styles/image_750_422/public/angela_weiss_643815e5e0550_0.jpg?itok=6shNtEAh" alt=""> -->
+        <img class="cardImage" src="https://uploads.jovemnerd.com.br/wp-content/uploads/2022/12/the_last_of_us_joel_pedro_pascal__g2c02z8-1210x544.jpg" alt="">
     </div>
     <div class="accueilCardTrois">
         <a class="nav-link" href="index.php?action=listReals">Réalisateurs</a>

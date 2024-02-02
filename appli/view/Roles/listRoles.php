@@ -4,7 +4,7 @@ session_start();
 ob_start(); 
 
 $titre = "Cinephyle";
-$titre_secondaire = "Liste des genres";
+$titre_secondaire = "Liste des rôles";
 ?>
 
 <h1><?= $titre_secondaire ?></h1>
@@ -15,18 +15,18 @@ $titre_secondaire = "Liste des genres";
 
         <thead>
             <tr>
-                <th scope="row" colspan="2">Genre</th>
+                <th scope="row" colspan="2">Rôles</th>
                 
             </tr>
         </thead>
 
         <tbody>
             <?php 
-            foreach($requeteGenre->fetchAll() as $genre) { ?>
+            foreach($requeteRoles->fetchAll() as $role) { ?>
 
                     <tr>                       
                         <td>
-                            <a class="filmLink" href="index.php?action=detailsGenre&id=<?= $genre['id_genre']?>"><?= $genre['libelle']?></a>
+                            <a class="filmLink" href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role['role']?></a>
                         </td>                       
                     </tr>
 
@@ -35,8 +35,6 @@ $titre_secondaire = "Liste des genres";
         
     </table>
 </div>
-
-<a href="index.php?action=ajoutGenre">test</a>
 
 
 <?php 

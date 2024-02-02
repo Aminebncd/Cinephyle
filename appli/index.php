@@ -7,7 +7,7 @@ use Controller\AccueilController;
 use Controller\ActeurController;
 use Controller\RealController;
 use Controller\GenreController;
-// use Controller\RealController;
+use Controller\RoleController;
 
 spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
@@ -18,7 +18,7 @@ $ctrlAccueil = new AccueilController();
 $ctrlActeur = new ActeurController();
 $ctrlReal = new RealController();
 $ctrlGenre = new GenreController();
-// $ctrlRole = new RoleController();
+$ctrlRole = new RoleController();
 
 $id = (isset($_GET["id"])) ? $_GET['id'] : null;
 
@@ -42,10 +42,13 @@ if (isset($_GET['action'])) {
         // GENRES //
         case "listGenres": $ctrlGenre->listGenres(); break;
         case "detailsGenre": $ctrlGenre->detailsGenre($id); break;
+        case "ajoutGenre": $ctrlGenre->ajoutGenre(); break;
 
-        // // ROLES //
-        // case "listRoles": $ctrlRole->listRoles(); break;
-        // case "detailsRole": $ctrlRole->detailsRole($id); break;
+        // ROLES //
+        case "listRoles": $ctrlRole->listRoles(); break;
+        case "detailsRole": $ctrlRole->detailsRole($id); break;
+
+        // MODIFICATIONS //
             
         default:
         break;

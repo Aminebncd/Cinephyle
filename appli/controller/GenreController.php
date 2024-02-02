@@ -42,7 +42,35 @@ class GenreController {
             "); 
             $requeteCate->execute([":id" => $id]);
 
-
+            $requeteNomGenre = $pdo->prepare("
+            SELECT 
+            libelle
+            FROM genre
+            
+            where genre.id_genre = :id
+            
+            "); 
+            $requeteNomGenre->execute([":id" => $id]);
+            
+            
+            
             require "view/Genres/detailsGenre.php";
         }
-}
+        
+        public function ajoutGenre() {
+            $pdo = Connect ::seConnecter();
+            
+            $libelle = filter_input(INPUT_POST, "libelle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            if ($libelle) {
+                
+                $requeteAjout = $pdo->prepare("
+                INSERT INTO genre (libelle) VALUES (:libelle)
+                ");
+                $requeteAjout->execute([":libelle" => $libelle]);
+
+                header("Location: index.php?action=listGenres");
+            }
+            require "view/Genres/ajoutGenre.php";
+        }
+    }

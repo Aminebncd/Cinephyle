@@ -179,29 +179,27 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: linear-gradient(180deg, rgba(18, 42, 70, 0.719) 0%, rgb(5, 5, 7) 100%); */
+  background: linear-gradient(180deg, rgba(18, 42, 70, 0.63) 10%, rgb(5, 5, 7) 100%);
   transition: 0.3s ease;
 }
 
 .accueilCardUn:hover .cardImage,
 .accueilCardDeux:hover .cardImage,
 .accueilCardTrois:hover .cardImage {
-  color: #ffffff;
   transform: scale(1.1);
   
 }
 
-.darkened-image {
+/* .darkened-image {
   background-image:
-  linear-gradient(180deg, rgba(18, 42, 70, 0.397) 0%, rgb(5, 5, 7) 100%),
-      url(
+  linear-gradient(180deg, rgba(18, 42, 70, 0.808) 0%, rgb(5, 5, 7) 100%), url(
 'https://static.cnews.fr/sites/default/files/styles/image_750_422/public/angela_weiss_643815e5e0550_0.jpg?itok=6shNtEAh');
  
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition:  0.3s ease;
-}
+} */
 
 
 

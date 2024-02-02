@@ -8,21 +8,21 @@
 // ++++++++++++++++++ACCUEIL++++++++++++++++++++++++++++++++++++
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const dots = document.querySelectorAll('.scrolling-dot');
+document.addEventListener('DOMContentLoaded', function () {
+    const dots = document.querySelectorAll('.scrolling-dot');
 
-//     let currentIndex = 1;
+    let currentIndex = 0;
 
-//     setInterval(() => {
-//         // Réinitialiser tous les indicateurs
-//         dots.forEach(dot => dot.classList.remove('active'));
+    setInterval(() => {
+        // Réinitialiser tous les indicateurs
+        dots.forEach(dot => dot.classList.remove('active'));
 
-//         // Mettre à jour l'indicateur actif
-//         dots[currentIndex % dots.length].classList.add('active');
+        // Mettre à jour l'indicateur actif
+        dots[currentIndex % dots.length].classList.add('active');
 
-//         currentIndex++;
-//     }, 1000);
-// });
+        currentIndex++;
+    }, 10000);
+});
 
 
 
@@ -30,7 +30,7 @@
 // LIST FILMS
 function scrollFilms(direction) {
     const filmContainer = document.querySelector('.filmContainer');
-    const scrollAmount = 500; // Ajustez la quantité de défilement selon votre préférence
+    const scrollAmount = 500;
     
     if (direction === 'left') {
         filmContainer.scrollLeft -= scrollAmount;

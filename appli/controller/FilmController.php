@@ -22,6 +22,7 @@ class FilmController {
     public function detailsFilm($id) {
         $pdo = Connect::seConnecter();
     
+        
         $requeteFilm = $pdo->prepare("
             SELECT 
 
@@ -49,11 +50,13 @@ class FilmController {
         ");
         $requeteFilm->execute([":id" => $id]);
 
+
         $requeteCasting = $pdo->prepare("
             SELECT 
             acteur.id_acteur,
             CONCAT(prenom, ' ',nom) AS acteur, 
-            role
+            role,
+            role.id_role
 
             FROM casting
             
@@ -64,7 +67,25 @@ class FilmController {
             WHERE id_film = :id
         "); 
         $requeteCasting->execute([":id" => $id]);
+
+
+        $requeteGenre = $pdo->prepare("
+            SELECT 
+
+            libelle,
+            genre.id_genre,
+            film.id_film
+           
+            FROM categorise
+
+            INNER JOIN genre on categorise.id_genre = genre.id_genre
+            INNER JOIN film on categorise.id_film = film.id_film
         
+            WHERE film.id_film = :id
+        "); 
+        $requeteGenre->execute([":id" => $id]);
+        
+
             require "view/Films/detailsFilm.php";
         }
         
