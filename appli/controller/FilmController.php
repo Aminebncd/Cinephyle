@@ -24,7 +24,8 @@ class FilmController {
     
         $requeteFilm = $pdo->prepare("
             SELECT 
-            
+
+            film.id_real,
             affiche,
             titre, 
             date_sortie_france, 
@@ -49,7 +50,10 @@ class FilmController {
         $requeteFilm->execute([":id" => $id]);
 
         $requeteCasting = $pdo->prepare("
-            SELECT CONCAT(prenom, ' ',nom) AS acteur, role
+            SELECT 
+            acteur.id_acteur,
+            CONCAT(prenom, ' ',nom) AS acteur, 
+            role
 
             FROM casting
             

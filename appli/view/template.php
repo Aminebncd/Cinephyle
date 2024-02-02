@@ -28,6 +28,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=listReals">Réalisateurs</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=listGenres">Genres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=listRoles">Rôles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?action=modif">Modifications</a>
+                </li>
             </ul>
         </div>
     </nav>

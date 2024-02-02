@@ -1,31 +1,42 @@
 <?php
 session_start(); 
 ob_start(); 
+
+$titre = "Cinephyle";
+$titre_secondaire = "Liste des acteurs";
 ?>
 
-<p >Il y a <?= $requete->rowCount() ?> films</p>
+<h1><?= $titre_secondaire ?></h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>TITRE</th>
-            <th>ANNEE SORTIE</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-        foreach($requete->fetchAll() as $film) { ?>
-                <tr>
-                    <td><?= $film['titre']?></td>
-                    <td><?= $film['date_sortie_france']?></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
+<p >Nombre d'acteurs :<?= $requete->rowCount() ?> </p>
+<h2>Les stars du moment :</h2>
+
+<div class="wrapList">
+    <button class="scrollButton" onclick="scrollFilms('left')">←</button>
+    <div class="filmContainer">
+        <div class="filmList">
+            <?php 
+            foreach($requete->fetchAll() as $acteur) { ?>
+                <div class="filmCard">
+                    <a class="filmLink" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur']?>">
+                    
+                    <img class="afficheList" src="" alt="" > 
+                    <div class="filmTitle">   
+                        <?= $acteur['nom']?>    
+                    </div>   
+            
+                </div>
+            </a>
+            <?php } ?>   
+        </div>
+    </div>
+    <button class="scrollButton" onclick="scrollFilms('right')">→</button>
+
+    
+
+</div>
+
 
 <?php 
-
-$titre = "Liste des films";
-$titre_secondaire = "Liste des films";
 $content = ob_get_clean();
-require = "view/template.php" ;
+require "view/template.php" ;

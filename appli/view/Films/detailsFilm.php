@@ -13,11 +13,11 @@ $titre_secondaire = "Détail du film";
         <h2 class="detTitre" ><?= $film['titre'] ?></h2>
         
         <div class="corps">
-        <p><strong>Réalisateur:</strong> <?= $film['réalisateur'] ?></p>
-        <p><strong>Date de sortie (France):</strong> <?= $film['date_sortie_france'] ?></p>
-        <p><strong>Durée:</strong> <?= $film['duree_formatée'] ?> minutes</p>
-        <p><strong>Note:</strong> <?= $film['note'] ?>
-        <p class="resume"><strong>Résumé:</strong> <?= $film['resume'] ?></p>
+        <p><strong>Réalisateur :</strong> <a class="filmLink" href="index.php?action=detailsReal&id=<?= $film['id_real']?>"><?= $film['réalisateur'] ?></a></p>
+        <p><strong>Date de sortie (France) :</strong> <?= $film['date_sortie_france'] ?></p>
+        <p><strong>Durée :</strong> <?= $film['duree_formatée'] ?> minutes</p>
+        <p><strong>Note :</strong> <?= $film['note'] ?>
+        <p class="resume"><strong>Résumé :</strong> <?= $film['resume'] ?></p>
         </div>
 
         <h3 class="cast">Distribution des rôles :</h3>
@@ -25,7 +25,7 @@ $titre_secondaire = "Détail du film";
         <?php $casting = $requeteCasting->fetchAll(); 
         // var_dump($casting);
         foreach($casting as $cast) { ?>
-            <p><?= $cast['acteur'] ?> dans le rôle de  <?= $cast['role'] ?></p>
+            <p><a class="filmLink" href="index.php?action=detailsActeur&id=<?= $cast['id_acteur']?>"><?= $cast['acteur'] ?></a> dans le rôle de  <?= $cast['role'] ?></p>
         <?php }  ?>
     <?php } else { ?>
         <p>Aucun détail n'a été trouvé pour ce film.</p>

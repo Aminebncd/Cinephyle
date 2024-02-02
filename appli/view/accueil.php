@@ -31,11 +31,12 @@ $titre_secondaire = "Retrouvez toutes les infos sur vos films favoris.";
 <div class="containerDeux">
     <div class="accueilCardUn">
         <a class="nav-link" href="index.php?action=listFilms">Films</a>
-        <img class="cardImage" src="https://www.parismatch.com/lmnr/var/pm/public/media/image/2022/03/20/03/The-Revenant-la-critique.jpg?VersionId=BBRUIaIgPUAmy65l2Uyd0kfjFMGd5B0q" alt="">
+        <img class="cardImage" src="https://www.presse-citron.net/app/uploads/2019/03/Affiche-Endgame-presse-citron.png" alt="">
     </div>
     <div class="accueilCardDeux">
         <a class="nav-link" href="index.php?action=listActeurs">Acteurs</a>
-        <img class="cardImage" src="https://static.cnews.fr/sites/default/files/styles/image_750_422/public/angela_weiss_643815e5e0550_0.jpg?itok=6shNtEAh" alt="">
+        <div class="darkened-image"></div>
+        <!-- <img class="cardImage" src="https://static.cnews.fr/sites/default/files/styles/image_750_422/public/angela_weiss_643815e5e0550_0.jpg?itok=6shNtEAh" alt=""> -->
     </div>
     <div class="accueilCardTrois">
         <a class="nav-link" href="index.php?action=listReals">Réalisateurs</a>
