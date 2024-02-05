@@ -74,7 +74,7 @@ class RealController {
             $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
             $lienWikipedia = filter_input(INPUT_POST, "lienWikipedia", FILTER_SANITIZE_URL);
     
-            if ($nom && $prenom && $sexe && $dateNaissance) {
+            if ($nom && $prenom && $sexe && $dateNaissance && $portrait && $lienWikipedia) {
     
                 $requeteAjout = $pdo->prepare("
                     INSERT INTO personne (nom, prenom, sexe, date_naissance, portrait, lien_wiki)

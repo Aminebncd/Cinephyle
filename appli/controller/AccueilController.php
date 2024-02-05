@@ -6,6 +6,7 @@ use Model\Connect;
 
 class AccueilController {
 
+    // Me ramene sur la page d'accueil
     public function landing() {
         $pdo = Connect::seConnecter();
     
@@ -27,8 +28,14 @@ class AccueilController {
 
         "); 
         
-            require "view/accueil.php";
-        }
+        require "view/accueil.php";
+    }
+
+    // me ramene sur la page modif
+    public function modif() {
+
+        require "view/Modifs/modif.php";
+    }
         
 
 }

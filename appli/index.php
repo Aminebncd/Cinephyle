@@ -53,7 +53,8 @@ if (isset($_GET['action'])) {
         case "ajoutRole": $ctrlRole->ajoutRole(); break;
 
         // MODIFICATIONS //
-    
+        case "modif" : $ctrlAccueil->modif(); break;
+
         default:
         break;
     }

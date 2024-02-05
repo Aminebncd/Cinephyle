@@ -11,15 +11,14 @@ $titre_secondaire = "Détails du film";
     <?php if ($requeteFilm->rowCount() > 0) {
         $film = $requeteFilm->fetch(); ?>
 
-        <img class="afficheDet" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>">
+        <img class="detAffiche" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>">
         <h2 class="detTitre"><?= $film['titre'] ?></h2>
 
-        <div class="corps">
+        <div class="detCorps">
 
-            <p><strong>Réalisateur :</strong><a class="filmLink" href="index.php?action=detailsReal&id=<?= $film['id_real'] ?>"><?= $film['réalisateur'] ?></a></p>
+            <p><strong>Réalisateur : </strong><a class="link" href="index.php?action=detailsReal&id=<?= $film['id_real'] ?>"><?= $film['réalisateur'] ?></a></p>
 
             <p><strong>Date de sortie (France) :</strong> <?= date('m/Y', strtotime($film['date_sortie_france'])) ?></p>
-
 
             <p><strong>Durée :</strong> <?= $film['duree_formatée'] ?> minutes</p>
 
@@ -27,8 +26,8 @@ $titre_secondaire = "Détails du film";
 
             <p><strong>genre(s) : <br></strong>
             <?php $genres = $requeteGenre->fetchAll(); 
-            foreach($genres as $genre) { ?>
-                <a class="filmLink" href="index.php?action=detailsGenre&id=<?= $genre['id_genre'] ?>"><?= $genre['libelle'] ?></a>
+                foreach($genres as $genre) { ?>
+                <a class="link" href="index.php?action=detailsGenre&id=<?= $genre['id_genre'] ?>"><?= $genre['libelle'] ?></a>
             <?php } ?>
             </p>
 
@@ -39,9 +38,9 @@ $titre_secondaire = "Détails du film";
 
         <?php $casting = $requeteCasting->fetchAll(); 
         foreach($casting as $cast) { ?>
-            <p><a class="filmLink" href="index.php?action=detailsActeur&id=<?= $cast['id_acteur'] ?>"><?= $cast['acteur'] ?></a>
+            <p><a class="link" href="index.php?action=detailsActeur&id=<?= $cast['id_acteur'] ?>"><?= $cast['acteur'] ?></a>
              dans le rôle de 
-             <a class="filmLink" href="index.php?action=detailsRole&id=<?= $cast['id_role']?>"><?= $cast['role'] ?></a>
+             <a class="link" href="index.php?action=detailsRole&id=<?= $cast['id_role']?>"><?= $cast['role'] ?></a>
              </p>
         <?php } ?>
     <?php } else { ?>

@@ -8,20 +8,20 @@ $titre_secondaire = "Liste des acteurs";
 
 <h1><?= $titre_secondaire ?></h1>
 
-<p >Nombre d'acteurs :<?= $requete->rowCount() ?> </p>
+<p >Nombre d'acteurs répertoriés :<?= $requete->rowCount() ?> </p>
 <h2>Les stars du moment :</h2>
 
 <div class="wrapList">
-    <button class="scrollButton" onclick="scrollFilms('left')">←</button>
-    <div class="filmContainer">
-        <div class="filmList">
+    <button class="scrollButton" onclick="scrollActeurs('left')">←</button>
+    <div class="acteurContainer">
+        <div class="acteurList">
             <?php 
             foreach($requete->fetchAll() as $acteur) { ?>
-                <div class="filmCard">
-                    <a class="filmLink" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur']?>">
+                <div class="acteurCard">
+                    <a class="link" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur']?>">
                     
                     <img class="afficheList" src="<?= $acteur['portrait'] ?>" alt="<?= $acteur['portrait'] ?>" > 
-                    <div class="filmTitle">   
+                    <div class="acteurTitle">   
                         <?= $acteur['nom']?>    
                     </div>   
             
@@ -30,7 +30,7 @@ $titre_secondaire = "Liste des acteurs";
             <?php } ?>   
         </div>
     </div>
-    <button class="scrollButton" onclick="scrollFilms('right')">→</button>
+    <button class="scrollButton" onclick="scrollActeurs('right')">→</button>
 
     
 

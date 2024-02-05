@@ -30,11 +30,11 @@ $titre_secondaire = "Formulaire d'ajout d'acteur";
         </div>
         <div class="mb-3">
             <label for="portraitActeur" class="form-label">URL du Portrait :</label>
-            <input type="url" class="form-control" name="portrait" id="portraitActeur">
+            <input type="url" class="form-control" name="portrait" id="portraitActeur" required>
         </div>
         <div class="mb-3">
             <label for="lienWikipediaActeur" class="form-label">Lien Wikipedia :</label>
-            <input type="url" class="form-control" name="lienWikipedia" id="lienWikipediaActeur">
+            <input type="url" class="form-control" name="lienWikipedia" id="lienWikipediaActeur" required>
         </div>
         <div class="mb-3">
             <label for="submit" class="form-label"></label>

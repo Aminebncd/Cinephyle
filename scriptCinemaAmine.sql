@@ -278,29 +278,6 @@ INSERT INTO `role` (`id_role`, `role`) VALUES
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -- A. Informations d’un film (id_film) : titre, année, durée (au format HH:MM) et réalisateur
 
 

@@ -1,47 +1,51 @@
 * {
-    padding: 0;
-    margin: 0;
-    vertical-align: top;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;;
-  }
-  
-  #wrapper {
-    padding-top: 100px;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    
-    background: linear-gradient(180deg, rgba(18,42,70,1) 0%, rgba(5,5,7,1) 100%);
-    padding: 100px 10%;
-    transition: 1s;
-  }
+  padding: 0;
+  margin: 0;
+  vertical-align: top;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
 
-  nav {
-    background-color: #000000;
-    padding: 10px;
+#wrapper {
+  padding-top: 100px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    rgba(18, 42, 70, 1) 0%,
+    rgba(5, 5, 7, 1) 100%
+  );
+  padding: 100px 5%;
+  transition: 1s;
+}
+
+nav {
+  background-color: #000000;
+  padding: 10px;
 }
 
 nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px;
-    display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
 }
 
 nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: flex-end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: flex-end;
 }
 
 a:visited {
   color: #ffffff;
 }
 
-div a:hover {
+a:hover {
   color: #ffffff;
 }
 a {
@@ -50,31 +54,37 @@ a {
 
 
 
-  /* +++++++++++++++++++++++ACCUEIL++++++++++++++++++++++++++++++++++ */
+
+
+
+
+
+
+
+/* +++++++++++++++++++++++ACCUEIL++++++++++++++++++++++++++++++++++ */
 
 .textLanding {
   text-align: center;
   padding-bottom: 50px;
 }
 
-  .h1Landing {
-    font-size: 30px;
-  }
+.h1Landing {
+  font-size: 30px;
+}
 
-  .pLanding {
-    margin-top: -15px;
-    font-size: 25px;
-    color: #c2c2c2;
-    font-weight: light;
-    line-height: normal;
-  }
+.pLanding {
+  margin-top: -15px;
+  font-size: 25px;
+  color: #c2c2c2;
+  font-weight: light;
+  line-height: normal;
+}
 
-  .containerUn{
-    /* */
-  }
+/* .containerUn {
 
- .scrolling-wrapper {
-  
+} */
+
+.scrolling-wrapper {
   display: flex;
   overflow: hidden;
   width: 100%;
@@ -85,37 +95,36 @@ a {
 .scrolling-card {
   flex: 0 0 auto;
   width: 100%;
-  
+
   animation: scroll 33s linear infinite;
 }
 
 .scrolling-img {
-  
   width: 100%;
   height: auto;
 }
 
 @keyframes scroll {
   0% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
   20% {
-      transform: translateX(0)
+    transform: translateX(0);
   }
   40% {
-      transform: translateX(-100%);
+    transform: translateX(-100%);
   }
   60% {
-      transform: translateX(-100%);
+    transform: translateX(-100%);
   }
   80% {
-      transform: translateX(-200%)
+    transform: translateX(-200%);
   }
   95% {
-      transform: translateX(-200%);
+    transform: translateX(-200%);
   }
   100% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
 }
 
@@ -129,21 +138,21 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #b6b6b6; 
+  background-color: #b6b6b6;
   margin: 0 5px;
-  transition: transform 0.3s ease, background-color 0.3s ease; 
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .active {
-  transform: scale(1.5); 
+  transform: scale(1.5);
   background-color: #fff;
   border-radius: 50%;
-
 }
 
 .containerDeux {
   padding-top: 150px;
   display: flex;
+  justify-content: center;
 }
 
 .accueilCardUn,
@@ -167,7 +176,7 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition:  0.3s ease;
+  transition: 0.3s ease;
 }
 
 .accueilCardUn::before,
@@ -179,7 +188,11 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(18, 42, 70, 0.63) 10%, rgb(5, 5, 7) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(18, 42, 70, 0.63) 10%,
+    rgb(5, 5, 7) 100%
+  );
   transition: 0.3s ease;
 }
 
@@ -187,7 +200,6 @@ a {
 .accueilCardDeux:hover .cardImage,
 .accueilCardTrois:hover .cardImage {
   transform: scale(1.1);
-  
 }
 
 /* .darkened-image {
@@ -201,8 +213,6 @@ a {
   transition:  0.3s ease;
 } */
 
-
-
 .accueilCardUn a,
 .accueilCardDeux a,
 .accueilCardTrois a {
@@ -214,8 +224,18 @@ a {
   height: 100%;
   text-align: center;
   text-decoration: none;
-  color: #fff;
+  color: #ffffff;
   z-index: 1; /* Place le lien au-dessus du pseudo-élément ::before */
+}
+
+.accueilCardUn a:hover,
+.accueilCardDeux a:hover,
+.accueilCardTrois a:hover {
+  color: #ffffff;
+}
+
+.miaou {
+  padding-top: 50px;
 }
 
 
@@ -226,144 +246,207 @@ a {
 
 
 
+/* +++++++++++++++++++++FILMS+++++++++++++++++++++++++++++ */
+
+/* LIST FILMS */
+
+.wrapList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.cateFilm {
+  margin-left: 50px;
+  padding-top: 50px;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.link:visited {
+  color: #ffffff;
+}
+
+.filmContainer {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.filmList {
+  display: flex;
+  flex-direction: row;
+  transition: 1s;
+}
+
+.afficheList {
+  height: 350px;
+  width: auto;
+  transition: 1s;
+  border-radius: 10px 10px 0 0;
+}
+
+.filmCard {
+  transition: 1s;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.scrollButton {
+  display: flex;
+  background-color: rgba(1, 3, 19, 0.815);
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  height: 35px;
+  border-radius: 25px;
+  align-items: center;
+}
+
+.scrollButton:hover {
+  background-color: gray;
+}
+
+.filmPoster {
+  border-radius: 10px;
+}
+
+.filmTitle {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.712);
+  overflow: hidden;
+  transition: 1s;
+  border-radius: 0 0 10px 10px;
+}
 
 
 
 
 
-    /* +++++++++++++++++++++FILMS+++++++++++++++++++++++++++++ */
 
+/* FILM DETAILS */
+.filmDetails {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.detAffiche {
+  max-height: 700px;
+  width: auto;
+}
 
-  /* LIST FILMS */
+.detTitre {
+  padding-top: 20px;
+}
 
-  .wrapList {
-    display: flex;
-    flex-direction: row;
-    padding-top: 100px;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .filmLink {
-    color: #ffffff;
-    text-decoration: none;
-  }
-  
-  .filmLink:visited {
-    color: #ffffff;
-  }
-  
-  .filmContainer {
-    /* padding: 100px; */
-    display: flex;
-    flex-direction: row;
-    overflow: hidden; /* Cache la barre de défilement, elle sera gérée par JavaScript */
-    /* transition: 1s; */
-    scroll-behavior: smooth;
+.detCorps {
+  padding-top: 80px;
+}
 
-  }
-  
-  .filmList {
-    display: flex;
-    flex-direction: row;
-    transition: 1s;
+.resume {
+  padding-top: 20px;
+  text-align: justify;
+}
 
-  }
-  
-  .afficheList {
-    /* display: flex; */
-    max-height: 350px ;
-    width: auto;
-    transition: 1s;
-    border-radius: 10px 10px 0 0;
-
-  }
-  
-  
-  .filmCard {
-    /* height: 80%;
-    width: auto; */
-    transition: 1s;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .scrollButton {
-    display: flex;
-    background-color: rgba(1, 3, 19, 0.815);
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 10px;
-    cursor: pointer;
-    height: 35px;
-    border-radius: 25px;
-    align-items: center;
-
-  }
-
-  .scrollButton:hover {
-    background-color: gray;
-  }
-  
-  
-  .filmPoster {
-    border-radius: 10px;
-
-  }
-
-
-  .filmTitle {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 40px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.712);
-    overflow: hidden;
-    transition: 1s;
-    border-radius: 0 0 10px 10px ;
-  }
+.cast {
+  padding-top: 20px;
+}
 
 
 
 
-  /* FILM DETAILS */
-  .filmDetails {
-    padding-top: 50px ;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .afficheDet {
-    /* display: flex; */
-    max-height: 700px ;
-    width: auto;
-  }
 
-  .detTitre {
-    padding-top: 20px ;
-  }
 
-  .corps {
-    padding-top: 80px ;
+/* AJOUT FILM */
 
-  }
+.checkbox {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 
-  .resume {
-    padding-top: 20px;
-    text-align: justify;
-  }
+}
 
-  .cast {
-    padding-top: 20px;
-  }
+.checkElement {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
 
-  .miaou {
-    padding-top: 50px;
-  }
+.checkLabel {
+  padding: 4px;
+}
+
+
+/* ++++++++++++++++++++++ACTEURS+++++++++++++++++++++++++++++++++ */
+/* LISTACTEURS */
+
+.acteurContainer {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.acteurList {
+  display: flex;
+  flex-direction: row;
+  transition: 1s;
+}
+
+.afficheList {
+  height: 350px;
+  width: auto;
+  transition: 1s;
+  border-radius: 10px 10px 0 0;
+}
+
+.acteurCard {
+  transition: 1s;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.acteurTitle {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.712);
+  overflow: hidden;
+  transition: 1s;
+  border-radius: 0 0 10px 10px;
+}
+
+
+
+
+
+/* +++++++++++++++++MODIFICATIONS+++++++++++++++++++++++++++ */
+
+.choice {
+  display: flex;
+  justify-content: space-evenly;
+}
