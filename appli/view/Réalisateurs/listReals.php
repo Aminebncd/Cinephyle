@@ -20,7 +20,7 @@ $titre_secondaire = "Liste des réalisateurs";
                 <div class="filmCard">
                     <a class="filmLink" href="index.php?action=detailsReal&id=<?= $real['id_real']?>">
                     
-                    <img class="afficheList" src="" alt="" > 
+                    <img class="afficheList" src="<?= $real['portrait'] ?>" alt="<?= $real['portrait'] ?>" >  
                     <div class="filmTitle">   
                         <?= $real['nom']?>    
                     </div>   
@@ -32,8 +32,12 @@ $titre_secondaire = "Liste des réalisateurs";
     </div>
     <button class="scrollButton" onclick="scrollFilms('right')">→</button>
 
-    
+</div>
 
+<div class="miaou">
+    
+    <h3 >AJOUTEZ UN REALISATEUR</h3>
+    <a href="index.php?action=ajoutReal">test</a>
 </div>
 
 

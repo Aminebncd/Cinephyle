@@ -72,7 +72,7 @@ class RoleController {
                 if ($intitule) {
                     
                     $requeteAjout = $pdo->prepare("
-                    INSERT INTO genre (intitule) VALUES (:intitule)
+                    INSERT INTO role (role) VALUES (:intitule)
                     ");
                     $requeteAjout->execute([":intitule" => $intitule]);
     

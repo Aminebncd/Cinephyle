@@ -8,16 +8,28 @@ class FilmController {
 
     // lister les films
     public function listFilms() {
-
         $pdo = Connect::seConnecter();
         
-        $requete = $pdo->query("
+        // Récupération des films ordonnés par date de sortie en France
+        $requeteDate = $pdo->query("
             SELECT id_film, titre, affiche
             FROM film
+            ORDER BY date_sortie_france DESC
         ");
-
+        $filmsDate = $requeteDate->fetchAll();
+    
+        // Récupération des films ordonnés par note
+        $requeteNote = $pdo->query("
+            SELECT id_film, titre, affiche
+            FROM film
+            ORDER BY note DESC
+        ");
+        $filmsNote = $requeteNote->fetchAll();
+    
+        // Inclusion de la vue avec les résultats
         require "view/Films/listFilms.php";
     }
+    
 
     public function detailsFilm($id) {
         $pdo = Connect::seConnecter();
@@ -86,8 +98,12 @@ class FilmController {
         $requeteGenre->execute([":id" => $id]);
         
 
-            require "view/Films/detailsFilm.php";
-        }
+        require "view/Films/detailsFilm.php";
+    }
+
+    
+    
+    
         
 
 }
