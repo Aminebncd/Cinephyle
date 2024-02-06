@@ -12,16 +12,16 @@ $titre_secondaire = "Liste des réalisateurs";
 <h2>Les plus recherchés :</h2>
 
 <div class="wrapList">
-    <button class="scrollButton" onclick="scrollFilms('left')">←</button>
-    <div class="filmContainer">
-        <div class="filmList">
+    <button class="scrollButton" onclick="scrollReals('left')">←</button>
+    <div class="realContainer">
+        <div class="realList">
             <?php 
             foreach($requete->fetchAll() as $real) { ?>
-                <div class="filmCard">
-                    <a class="filmLink" href="index.php?action=detailsReal&id=<?= $real['id_real']?>">
+                <div class="realCard">
+                    <a class="link" href="index.php?action=detailsReal&id=<?= $real['id_real']?>">
                     
                     <img class="afficheList" src="<?= $real['portrait'] ?>" alt="<?= $real['portrait'] ?>" >  
-                    <div class="filmTitle">   
+                    <div class="realTitle">   
                         <?= $real['nom']?>    
                     </div>   
             
@@ -30,15 +30,10 @@ $titre_secondaire = "Liste des réalisateurs";
             <?php } ?>   
         </div>
     </div>
-    <button class="scrollButton" onclick="scrollFilms('right')">→</button>
+    <button class="scrollButton" onclick="scrollReals('right')">→</button>
 
 </div>
 
-<div class="miaou">
-    
-    <h3 >AJOUTEZ UN REALISATEUR</h3>
-    <a href="index.php?action=ajoutReal">test</a>
-</div>
 
 
 <?php 

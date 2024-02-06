@@ -36,12 +36,6 @@ $titre_secondaire = "Liste des acteurs";
 
 </div>
 
-<div class="miaou">
-    
-    <h3 >AJOUTEZ UN ACTEUR</h3>
-    <a href="index.php?action=ajoutActeur">test</a>
-</div>
-
 
 <?php 
 $content = ob_get_clean();

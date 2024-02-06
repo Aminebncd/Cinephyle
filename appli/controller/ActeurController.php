@@ -119,6 +119,64 @@ class ActeurController {
         
         require "view/Acteurs/ajoutActeur.php";
     }
+
+    public function modifActeur($id) {
+        $pdo = Connect::seConnecter();
         
+        // on recupere l'acteur à modifier
+        $requeteActeur = $pdo->prepare("
+        SELECT
+        
+        personne.id_personne,
+        personne.lien_wiki,
+        personne.portrait,
+        personne.nom,
+        personne.prenom,
+        CONCAT(personne.prenom, ' ', personne.nom) AS acteur,
+        personne.date_naissance
+        FROM personne
+        INNER JOIN acteur ON acteur.id_personne = personne.id_personne;
+    
+        ");
+        $requeteActeur->execute();
+        $acteurs = $requeteActeur->fetchAll();
+    
+    
+        if (isset($_POST["submit"])) {
+            // Sanitize l'input
+            $acteurId = filter_input(INPUT_POST, "idActeur", FILTER_SANITIZE_NUMBER_INT);
+            $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
+            $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_STRING);
+            $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
+            $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
+            $date_naissance = filter_input(INPUT_POST, "date_naissance", FILTER_SANITIZE_STRING);
+    
+            // mise à jour des infos
+            $requeteModif = $pdo->prepare("
+                UPDATE personne
+                SET prenom = :prenom,
+                    nom = :nom,
+                    lien_wiki = :lien_wiki,
+                    portrait = :portrait,
+                    date_naissance = :date_naissance
+                WHERE id_personne = :id
+            ");
+            $requeteModif->execute([
+                ":id" => $acteurId,
+                ":prenom" => $prenom,
+                ":nom" => $nom,
+                ":lien_wiki" => $lien_wiki,
+                ":portrait" => $portrait,
+                ":date_naissance" => $date_naissance
+            ]);
+    
+            // Redirection apres modification
+            header("Location: index.php?action=listActeurs");
+            exit(); 
+        }
+    
+        require "view/Acteurs/modifActeur.php";
+    }
+    
 
 }

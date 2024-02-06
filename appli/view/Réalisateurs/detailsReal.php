@@ -24,7 +24,7 @@ $titre_secondaire = "Détail du réalisateur";
         <?php $films = $requeteFilmo->fetchAll(); 
         // var_dump($casting);
         foreach($films as $film) { ?>
-        <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>"><?= $film['titre'] ?> (<?= $film['date_sortie_france'] ?>)</a>
+        <a class="link" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>"><?= $film['titre'] ?> (<?= $film['date_sortie_france'] ?>)</a>
             
         <?php }  ?>
     <?php } else { ?>

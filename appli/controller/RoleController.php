@@ -15,6 +15,7 @@ class RoleController {
             *
             
             FROM role
+            ORDER BY role ASC
             
             ");
 
@@ -81,4 +82,37 @@ class RoleController {
             }
             require "view/Roles/ajoutRole.php";
         }
+
+        public function modifRole($id) {
+            
+            $pdo = Connect ::seConnecter();
+            $requeteRoles = $pdo->query("
+            SELECT 
+            
+            id_role,
+            role
+            
+            FROM role");
+            
+            $roles = $requeteRoles->fetchAll();
+            
+            if (isset($_POST["submit"])) {
+                // var_dump($_POST);die;
+                $roleId = filter_input(INPUT_POST, "idRole", FILTER_SANITIZE_NUMBER_INT);
+                $roleModifie = filter_input(INPUT_POST, "roleModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+                if ($roleModifie) {
+                    $requeteModif = $pdo->prepare("
+                    UPDATE role
+                    SET role = :roleModifie
+                    where id_role = :id
+                    ");
+                    $requeteModif->execute([":id" => $roleId,
+                                ":roleModifie" => $roleModifie]);
+                    }
+                    header("Location: index.php?action=listRoles");
+                    exit(); 
+                }
+                require "view/roles/modifRole.php";
+            }
 }

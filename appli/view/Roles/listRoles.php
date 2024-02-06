@@ -26,7 +26,7 @@ $titre_secondaire = "Liste des rôles";
 
                     <tr>                       
                         <td>
-                            <a class="filmLink" href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role['role']?></a>
+                            <a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role['role']?></a>
                         </td>                       
                     </tr>
 
@@ -36,11 +36,6 @@ $titre_secondaire = "Liste des rôles";
     </table>
 </div>
 
-<div class="miaou">
-    
-    <h3 >AJOUTEZ UN ROLE</h3>
-    <a href="index.php?action=ajoutRole">test</a>
-</div>
 
 
 <?php 

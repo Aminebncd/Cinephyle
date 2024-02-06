@@ -108,4 +108,64 @@ class RealController {
         require "view/Réalisateurs/ajoutReal.php";
     }
 
+    public function modifReal($id) {
+        $pdo = Connect::seConnecter();
+        
+        // on recupere l'real à modifier
+        $requeteReal = $pdo->prepare("
+
+        SELECT
+        
+        personne.id_personne,
+        personne.lien_wiki,
+        personne.portrait,
+        personne.nom,
+        personne.prenom,
+        CONCAT(personne.prenom, ' ', personne.nom) AS realisateur,
+        personne.date_naissance
+        FROM personne
+        INNER JOIN realisateur ON realisateur.id_personne = personne.id_personne;
+    
+        ");
+        // var_dump($requeteReal->fetchAll());die;
+        $requeteReal->execute();
+        $reals = $requeteReal->fetchAll();
+    
+    
+        if (isset($_POST["submit"])) {
+            // Sanitize l'input
+            $realId = filter_input(INPUT_POST, "idReal", FILTER_SANITIZE_NUMBER_INT);
+            $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
+            $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_STRING);
+            $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
+            $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
+            $date_naissance = filter_input(INPUT_POST, "date_naissance", FILTER_SANITIZE_STRING);
+    
+            // mise à jour des infos
+            $requeteModif = $pdo->prepare("
+                UPDATE personne
+                SET prenom = :prenom,
+                    nom = :nom,
+                    lien_wiki = :lien_wiki,
+                    portrait = :portrait,
+                    date_naissance = :date_naissance
+                WHERE id_personne = :id
+            ");
+            $requeteModif->execute([
+                ":id" => $realId,
+                ":prenom" => $prenom,
+                ":nom" => $nom,
+                ":lien_wiki" => $lien_wiki,
+                ":portrait" => $portrait,
+                ":date_naissance" => $date_naissance
+            ]);
+    
+            // Redirection apres modification
+            header("Location: index.php?action=listReals");
+            exit(); 
+        }
+    
+        require "view/Réalisateurs/modifReal.php";
+    }
+
 }

@@ -26,7 +26,7 @@ $titre_secondaire = "Liste des films contenant le genre :";
 
                     <tr>                       
                         <td>
-                            <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $categorie['id_film']?>"><?= $categorie['titre']?></a>
+                            <a class="link" href="index.php?action=detailsFilm&id=<?= $categorie['id_film']?>"><?= $categorie['titre']?></a>
                         </td>                       
                     </tr>
 

@@ -77,4 +77,40 @@ class GenreController {
             }
             require "view/Genres/ajoutGenre.php";
         }
-    }
+
+        public function modifGenre($id) {
+            
+        $pdo = Connect ::seConnecter();
+        $requeteGenres = $pdo->query("
+        SELECT 
+        
+        id_genre,
+        libelle
+        
+        FROM genre");
+        
+        $genres = $requeteGenres->fetchAll();
+        
+        if (isset($_POST["submit"])) {
+            // var_dump($_POST);die;
+            $genreId = filter_input(INPUT_POST, "idGenre", FILTER_SANITIZE_NUMBER_INT);
+            $genreModifie = filter_input(INPUT_POST, "genreModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($genreModifie) {
+                $requeteModif = $pdo->prepare("
+                UPDATE genre
+                SET libelle = :genreModifie
+                where id_genre = :id
+                ");
+                $requeteModif->execute([":id" => $genreId,
+                            ":genreModifie" => $genreModifie]);
+                }
+                header("Location: index.php?action=listGenres");
+                exit(); 
+            }
+            require "view/Genres/modifGenre.php";
+        }
+
+}
+
+

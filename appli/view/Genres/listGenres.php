@@ -26,7 +26,7 @@ $titre_secondaire = "Liste des genres";
 
                     <tr>                       
                         <td>
-                            <a class="filmLink" href="index.php?action=detailsGenre&id=<?= $genre['id_genre']?>"><?= $genre['libelle']?></a>
+                            <a class="link" href="index.php?action=detailsGenre&id=<?= $genre['id_genre']?>"><?= $genre['libelle']?></a>
                         </td>                       
                     </tr>
 
@@ -38,11 +38,6 @@ $titre_secondaire = "Liste des genres";
 
 
 
-<div class="miaou">
-    
-    <h3 >AJOUTEZ UN GENRE</h3>
-    <a href="index.php?action=ajoutGenre">test</a>
-</div>
 
 
 <?php 

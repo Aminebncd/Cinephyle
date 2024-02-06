@@ -183,6 +183,107 @@ class FilmController {
         require "view/Films/ajoutFilm.php";
     }
 
+    public function modifFilm($id) {
+        $pdo = Connect::seConnecter();
+    
+        // Récupération de la liste des réalisateurs
+        $requeteRealisateurs = $pdo->query("
+            SELECT 
+                realisateur.id_real, 
+                CONCAT(personne.prenom, ' ', personne.nom) AS realisateur
+            FROM 
+                realisateur
+            INNER JOIN 
+                personne ON realisateur.id_personne = personne.id_personne");
+    
+        $realisateurs = $requeteRealisateurs->fetchAll();
+    
+        // Récupération de la liste des genres
+        $requeteGenres = $pdo->query("
+            SELECT 
+                id_genre,
+                libelle
+            FROM genre
+            ");
+    
+        $genres = $requeteGenres->fetchAll();
+    
+        // Récupération du film à modifier
+        $requeteFilm = $pdo->prepare("
+            SELECT
+                *
+            FROM film
+        ");
+        $requeteFilm->execute();
+        $films = $requeteFilm->fetchAll();
+    
+        
+    
+        if (isset($_POST["submit"])) {
+            // Sanitization des entrées
+            $filmId = filter_input(INPUT_POST, "idFilm", FILTER_SANITIZE_NUMBER_INT);
+            $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_STRING);
+            $dateSortieFrance = filter_input(INPUT_POST, "dateSortieFrance", FILTER_SANITIZE_STRING);
+            $duree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_NUMBER_INT);
+            $resume = filter_input(INPUT_POST, "resume", FILTER_SANITIZE_STRING);
+            $note = filter_input(INPUT_POST, "note", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $affiche = filter_input(INPUT_POST, "affiche", FILTER_SANITIZE_URL);
+            $idRealisateur = filter_input(INPUT_POST, "idRealisateur", FILTER_SANITIZE_NUMBER_INT);
+            $idGenres = filter_input(INPUT_POST, "idGenre", FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
+    
+            // Mise à jour des informations du film
+            $requeteModif = $pdo->prepare("
+                UPDATE film
+                SET 
+                    titre = :titre,
+                    date_sortie_france = :dateSortieFrance,
+                    duree = :duree,
+                    resume = :resume,
+                    note = :note,
+                    affiche = :affiche,
+                    id_realisateur = :idRealisateur
+                WHERE 
+                    id_film = :idFilm
+            ");
+            $requeteModif->execute([
+                ":idFilm" => $filmId,
+                ":titre" => $titre,
+                ":dateSortieFrance" => $dateSortieFrance,
+                ":duree" => $duree,
+                ":resume" => $resume,
+                ":note" => $note,
+                ":affiche" => $affiche,
+                ":idRealisateur" => $idRealisateur
+            ]);
+    
+            // Mettre à jour les genres du film
+            // Supprimer d'abord les genres existants du film
+            $pdo->prepare("
+            DELETE FROM categorise 
+            WHERE id_film = :idFilm")
+            ->execute([":idFilm" => $filmId]);
+
+            // Insérer les nouveaux genres sélectionnés
+            foreach ($idGenres as $idGenre) {
+                $pdo->prepare("
+                INSERT INTO categorise (id_film, id_genre) 
+                VALUES (:idFilm, :idGenre)")
+                ->execute([
+                    ":idFilm" => $filmId,
+                    ":idGenre" => $idGenre
+                ]);
+            }
+    
+            // Redirection après la modification
+            header("Location: index.php?action=listFilms");
+            exit(); 
+        }
+    
+        // Inclure la vue pour afficher le formulaire de modification du film
+        require "view/Films/modifFilm.php";
+    }
+    
+
     
     
     

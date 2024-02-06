@@ -284,12 +284,6 @@ a {
   transition: 1s;
 }
 
-.afficheList {
-  height: 350px;
-  width: auto;
-  transition: 1s;
-  border-radius: 10px 10px 0 0;
-}
 
 .filmCard {
   transition: 1s;
@@ -378,7 +372,7 @@ a {
 
 .checkbox {
   display: flex;
-  height: 80px;
+  height: 90px;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
@@ -414,7 +408,8 @@ a {
 
 .afficheList {
   height: 350px;
-  width: auto;
+  width: 300px;
+  object-fit: cover;
   transition: 1s;
   border-radius: 10px 10px 0 0;
 }
@@ -444,9 +439,73 @@ a {
 
 
 
+
+
+
+
+
+
+
+
+
+/* ++++++++++++++++++REALISATEURS++++++++++++++++++++++ */
+
+.realContainer {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.realList {
+  display: flex;
+  flex-direction: row;
+  transition: 1s;
+}
+
+.afficheList {
+  height: 350px;
+  width: 300px;
+  object-fit: cover;
+  transition: 1s;
+  border-radius: 10px 10px 0 0;
+}
+
+.realCard {
+  transition: 1s;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.realTitle {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.712);
+  overflow: hidden;
+  transition: 1s;
+  border-radius: 0 0 10px 10px;
+}
+
+
+
 /* +++++++++++++++++MODIFICATIONS+++++++++++++++++++++++++++ */
 
 .choice {
+  background-color: #0000005b;
+  border-radius: 15px;
+  padding: 50px;
   display: flex;
   justify-content: space-evenly;
+}
+
+.choiceLabel {
+  display: flex;
+  font-size: 30px;
+  padding-bottom: 20px;
 }

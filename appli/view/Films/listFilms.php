@@ -13,7 +13,7 @@ $titre_secondaire = "Liste des films";
         <div class="filmList">
             <?php foreach ($filmsDate as $film) : ?>
                 <div class="filmCard">
-                    <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>">
+                    <a class="link" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>">
                         <img class="afficheList" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>" >    
                         <div class="filmTitle"><?= $film['titre']?></div>
                     </a>
@@ -31,7 +31,7 @@ $titre_secondaire = "Liste des films";
         <div class="filmList">
             <?php foreach ($filmsNote as $film) : ?>
                 <div class="filmCard">
-                    <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>">
+                    <a class="link" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>">
                         <img class="afficheList" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>" >    
                         <div class="filmTitle"><?= $film['titre']?></div>
                     </a>
@@ -40,11 +40,6 @@ $titre_secondaire = "Liste des films";
         </div>
     </div>
     <button class="scrollButton" onclick="scrollFilmsNote('right')">→</button>
-</div>
-
-<div class="miaou">
-    <h3>AJOUTEZ UN FILM</h3>
-    <a href="index.php?action=ajoutFilm">test</a>
 </div>
 
 <?php 

@@ -15,7 +15,7 @@ $titre_secondaire = "Formulaire d'ajout de film";
         </div>
         <div class="mb-3">
             <label for="dateSortieFilm" class="form-label">Date de sortie en France :</label>
-            <input type="text" class="form-control" name="dateSortieFrance" id="dateSortieFilm" placeholder="Format: YYYY-MM-DD" required>
+            <input type="date" class="form-control" name="dateSortieFrance" id="dateSortieFilm" required>
         </div>
 
         <div class="mb-3">

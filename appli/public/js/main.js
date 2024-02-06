@@ -75,3 +75,16 @@ function scrollActeurs(direction) {
     console.log("ok");
   }
 }
+
+function scrollReals(direction) {
+  const realsContainer = document.querySelector(".realContainer");
+  const scrollAmount = 1000;
+
+  if (direction === "left") {
+    realsContainer.scrollLeft -= scrollAmount;
+    console.log("ok");
+  } else if (direction === "right") {
+    realsContainer.scrollLeft += scrollAmount;
+    console.log("ok");
+  }
+}

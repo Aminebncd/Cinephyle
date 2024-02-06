@@ -7,7 +7,7 @@ $titre = "Cinephyle";
 $titre_secondaire = "Liste des interprètes pour le rôle de :";
 ?>
 
-<h1><a class="nav-link" href="index.php?action=listRoles"><?= $titre_secondaire ?></a></h1>
+<h1><?= $titre_secondaire ?></h1>
 
 
 <div>
@@ -26,9 +26,9 @@ $titre_secondaire = "Liste des interprètes pour le rôle de :";
 
                     <tr>                       
                         <td>
-                            <a class="filmLink" href="index.php?action=detailsActeur&id=<?= $historique['id_acteur']?>"><?= $historique['acteur']?></a>
+                            <a class="link" href="index.php?action=detailsActeur&id=<?= $historique['id_acteur']?>"><?= $historique['acteur']?></a>
                                 dans
-                            <a class="filmLink" href="index.php?action=detailsFilm&id=<?= $historique['id_film']?>"><?= $historique['titre']?></a>
+                            <a class="link" href="index.php?action=detailsFilm&id=<?= $historique['id_film']?>"><?= $historique['titre']?></a>
                         </td>                       
                     </tr>
 
