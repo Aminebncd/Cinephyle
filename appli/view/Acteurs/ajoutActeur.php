@@ -8,7 +8,7 @@ $titre_secondaire = "Formulaire d'ajout d'acteur";
 
     <h1><?= $titre_secondaire ?></h1>
 
-    <form action="index.php?action=ajoutActeur" method="POST" class="bg-dark text-white p-4 rounded">
+    <form action="index.php?action=ajoutActeur" method="POST" class="bg-transparent text-white p-4 rounded">
         <div class="mb-3">
             <label for="nomActeur" class="form-label">Nom :</label>
             <input type="text" class="form-control" name="nom" id="nomActeur" required>

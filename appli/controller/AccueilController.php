@@ -34,7 +34,7 @@ class AccueilController {
     // me ramene sur la page modif
     public function modif() {
 
-        require "view/Modifs/modif.php";
+        require "view/Modifs/ajout.php";
     }
         
 

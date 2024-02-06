@@ -7,38 +7,30 @@ $titre = "Cinephyle";
 $titre_secondaire = "Liste des rôles";
 ?>
 
-<h1><?= $titre_secondaire ?></h1>
-
-
-<div>
-    <table>
-
+<div class="container">
+    <h1><?= $titre_secondaire ?></h1>
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="row" colspan="2">Rôles</th>
-                
+                <th scope="col">Rôles</th>
             </tr>
         </thead>
-
         <tbody>
-            <?php 
-            foreach($requeteRoles->fetchAll() as $role) { ?>
-
-                    <tr>                       
-                        <td>
-                            <a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role['role']?></a>
-                        </td>                       
-                    </tr>
-
-            <?php } ?>
+            <?php foreach($requeteRoles->fetchAll() as $role): ?>
+                <tr>
+                    <td>
+                        <a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role']?>"><?= $role['role']?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
-        
     </table>
 </div>
 
-
+</body>
+</html>
 
 <?php 
-
 $content = ob_get_clean();
-require "view/template.php" ;
+require "view/template.php";
+?>

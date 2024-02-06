@@ -6,27 +6,29 @@ $titre_secondaire = "Détail de l'acteur";
 ?>
 <h1><?= $titre_secondaire ?></h1>
 
-<div class="filmDetails">
+<div class="acteurDetails">
     <?php if ($requeteActeur->rowCount() > 0) {
 
         $acteur = $requeteActeur->fetch(); ?>
 
         <h2 class="detNom" ><?= $acteur['nom'] ?></h2>
-        <img class="portraitDet" src="<?= $acteur['portrait'] ?>" alt="<?= $acteur['portrait'] ?>">
-        <a href="<?= $acteur['lien_wiki'] ?>">lien wiki</a>
-        
-        <div class="corps">
-        <p><strong>date de naissance:</strong> <?= date('m/Y', strtotime($acteur['date_naissance'])) ?></p>
-        </div>
+        <div class ='infos'>
+            <div class="contPortrait">
 
-        <h3 class="cast">Rôles incarnés :</h3>
-    
-        <?php $roles = $requeteRoles->fetchAll(); 
-        // var_dump($casting);
-        foreach($roles as $role) { ?>
-            <p><a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role'] ?>"><?= $role['role'] ?></a> dans <a class="link" href="index.php?action=detailsFilm&id=<?= $role['id_film']?>"><?= $role['titre'] ?> (<?= date('Y', strtotime($role['date_sortie_france'])) ?>)</a></p>
+                <img class="portraitDet" src="<?= $acteur['portrait'] ?>" alt="<?= $acteur['portrait'] ?>">
+            </div>
+            <div class="detActCorps">
+            <a href="<?= $acteur['lien_wiki'] ?>">lien wikipedia</a>
+            <p><strong>date de naissance:</strong> <?= date('m/Y', strtotime($acteur['date_naissance'])) ?></p>
             
-        <?php }  ?>
+            <p class="cast">Rôles incarnés :</p>
+
+            <?php $roles = $requeteRoles->fetchAll();
+            foreach($roles as $role) { ?>
+                <p><a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role'] ?>"><?= $role['role'] ?></a> dans <a class="link" href="index.php?action=detailsFilm&id=<?= $role['id_film']?>"><?= $role['titre'] ?> (<?= date('Y', strtotime($role['date_sortie_france'])) ?>)</a></p>
+            <?php }  ?>
+            </div>
+        </div>
     <?php } else { ?>
         <p>Aucun détail n'a été trouvé pour cet acteur.</p>
     <?php } ?>

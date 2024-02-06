@@ -8,7 +8,7 @@ $titre_secondaire = "Formulaire d'ajout de réalisateur";
 
     <h1><?= $titre_secondaire ?></h1>
 
-    <form action="index.php?action=ajoutReal" method="POST" class="bg-dark text-white p-4 rounded">
+    <form action="index.php?action=ajoutReal" method="POST" class="bg-transparent text-white p-4 rounded">
         <div class="mb-3">
             <label for="nomReal" class="form-label">Nom :</label>
             <input type="text" class="form-control" name="nom" id="nomReal" required>

@@ -63,7 +63,7 @@ if (isset($_GET['action'])) {
         case "deleteRole": $ctrlRole->deleteRole($id); break;
 
         // MODIFICATIONS //
-        case "modif" : $ctrlAccueil->modif(); break;
+        case "ajout" : $ctrlAccueil->modif(); break;
 
         default:
         break;

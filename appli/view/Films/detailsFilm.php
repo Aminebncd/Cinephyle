@@ -11,10 +11,10 @@ $titre_secondaire = "Détails du film";
     <?php if ($requeteFilm->rowCount() > 0) {
         $film = $requeteFilm->fetch(); ?>
 
-        <img class="detAffiche" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>">
+        <img class="afficheDet" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>">
         <h2 class="detTitre"><?= $film['titre'] ?></h2>
 
-        <div class="detCorps">
+        <div class="detFilmCorps">
 
             <p><strong>Réalisateur : </strong><a class="link" href="index.php?action=detailsReal&id=<?= $film['id_real'] ?>"><?= $film['réalisateur'] ?></a></p>
 
