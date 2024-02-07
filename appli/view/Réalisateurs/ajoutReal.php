@@ -26,7 +26,7 @@ $titre_secondaire = "Formulaire d'ajout de réalisateur";
         </div>
         <div class="mb-3">
             <label for="dateNaissanceReal" class="form-label">Date de Naissance :</label>
-            <input type="text" class="form-control" name="dateNaissance" id="dateNaissanceReal" placeholder="Format: YYYY-MM-DD" required>
+            <input type="date" class="form-control" name="dateNaissance" id="dateNaissanceReal" placeholder="Format: YYYY-MM-DD" required>
         </div>
         <div class="mb-3">
             <label for="portraitReal" class="form-label">URL du Portrait :</label>

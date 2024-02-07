@@ -185,7 +185,6 @@ class GenreController {
 
             require "view/Genres/deleteGenre.php";
             
-    
         }
         
         

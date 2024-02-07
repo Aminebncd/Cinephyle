@@ -195,6 +195,29 @@ class ActeurController {
     
         require "view/Acteurs/modifActeur.php";
     }
+
+    public function deleteActeur($id) {
+        $pdo = Connect::seConnecter();
+    
+        $requeteDelete = $pdo->prepare("
+        DELETE FROM acteur
+        WHERE id_acteur = :id
+        ");
+        
+        $success = $requeteDelete->execute([":id" => $id]);
+
+        if ($success) {
+            header("Location: index.php?action=listActeurs");
+            exit();
+        } else {
+            // Handle error, display error message or log it
+            echo "Error occurred while updating acteur.";
+        }
+
+
+        require "view/Acteurs/deleteActeur.php";
+        
+    }
     
 
 }

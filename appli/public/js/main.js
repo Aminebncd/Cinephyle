@@ -6,34 +6,36 @@
 
 // ++++++++++++++++++ACCUEIL++++++++++++++++++++++++++++++++++++
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   const dots = document.querySelectorAll(".scrolling-dot");
-//   const wrapper = document.querySelector(".scrolling-wrapper");
+document.addEventListener("DOMContentLoaded", function () {
+  const dots = document.querySelectorAll(".scrolling-dot");
+  const wrapper = document.querySelector(".scrolling-wrapper");
 
-//   let currentIndex = 0;
+  let currentIndex = 0;
 
-//   setInterval(() => {
-//     // Réinitialiser tous les indicateurs
-//     dots.forEach((dot) => dot.classList.remove("active"));
+  setInterval(() => {
+    // Réinitialiser tous les indicateurs
+    dots.forEach((dot) => dot.classList.remove("active"));
 
-//     // Mettre à jour l'indicateur actif
-//     dots[currentIndex % dots.length].classList.add("active");
+    // Mettre à jour l'indicateur actif
+    dots[currentIndex].classList.add("active");
 
-//     currentIndex++;
-//   }, 8000);
+    wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-//   // Pause l'animation lorsqu'on survole la zone de défilement
-//   wrapper.addEventListener("mouseover", () => {
-//     const cards = document.querySelectorAll(".scrolling-card");
-//     cards.forEach((card) => (card.style.animationPlayState = "paused"));
-//   });
+    currentIndex = (currentIndex + 1) % dots.length;
+  }, 5000);
 
-//   // Reprise de l'animation lorsqu'on quitte la zone de défilement
-//   wrapper.addEventListener("mouseout", () => {
-//     const cards = document.querySelectorAll(".scrolling-card");
-//     cards.forEach((card) => (card.style.animationPlayState = "running"));
-//   });
-// });
+  // Pause l'animation lorsqu'on survole la zone de défilement
+  // wrapper.addEventListener("mouseover", () => {
+  //   const cards = document.querySelectorAll(".scrolling-card");
+  //   cards.forEach((card) => (card.style.animationPlayState = "paused"));
+  // });
+
+  // Reprise de l'animation lorsqu'on quitte la zone de défilement
+  // wrapper.addEventListener("mouseout", () => {
+  //   const cards = document.querySelectorAll(".scrolling-card");
+  //   cards.forEach((card) => (card.style.animationPlayState = "running"));
+  // });
+});
 
 // ++++++++++++++FILMS++++++++++++++++++++++++++++++++++++
 // LIST FILMS

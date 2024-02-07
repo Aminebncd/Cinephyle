@@ -169,4 +169,27 @@ class RealController {
         require "view/Réalisateurs/modifReal.php";
     }
 
+    public function deleteReal($id) {
+        $pdo = Connect::seConnecter();
+    
+        $requeteDelete = $pdo->prepare("
+        DELETE FROM realisateur
+        WHERE id_real = :id
+        ");
+        
+        $success = $requeteDelete->execute([":id" => $id]);
+
+        if ($success) {
+            header("Location: index.php?action=listReals");
+            exit();
+        } else {
+            // Handle error, display error message or log it
+            echo "Error occurred while updating realisateur.";
+        }
+
+
+        require "view/Réalisateurs/deleteReal.php";
+        
+    }
+
 }

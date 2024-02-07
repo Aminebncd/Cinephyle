@@ -283,6 +283,34 @@ class FilmController {
         // Inclure la vue pour afficher le formulaire de modification du film
         require "view/Films/modifFilm.php";
     }
+
+    public function deleteFilm($id) {
+        $pdo = Connect::seConnecter();
+    
+        $pdo->prepare("
+            DELETE FROM categorise 
+            WHERE id_film = :id")
+            ->execute([":id" => $id]);
+
+        $requeteDelete = $pdo->prepare("
+        DELETE FROM film
+        WHERE id_film = :id
+        ");
+        
+        $success = $requeteDelete->execute([":id" => $id]);
+
+        if ($success) {
+            header("Location: index.php?action=listFilms");
+            exit();
+        } else {
+            // Handle error, display error message or log it
+            echo "Error occurred while updating film.";
+        }
+
+
+        require "view/Films/deleteFilm.php";
+        
+    }
     
 
     
