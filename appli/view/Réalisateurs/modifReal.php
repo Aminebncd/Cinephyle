@@ -10,8 +10,7 @@ $titre_secondaire = "Formulaire de modification d'un Real";
     <form action="index.php?action=modifReal&id=<?= $realisateur["id_personne"] ?>" method="POST">
 
         <div class="mb-3">
-            <label for="idReal" class="form-label">Real à modifier : 
-                <?= $realisateur["realisateur"] ?></label>
+            <label for="idReal" class="form-label titreForm">Réalisateur à modifier : <strong> <?= $realisateur["realisateur"] ?></strong></label>
         </div>
         <div class="mb-3">
             <label for="prenom" class="form-label">Prénom :</label>

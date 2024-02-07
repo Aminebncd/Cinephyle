@@ -10,8 +10,8 @@ $titre_secondaire = "Formulaire de modification d'un Acteur";
     <form action="index.php?action=modifActeur&id=<?= $acteur["id_personne"] ?>" method="POST">
 
         <div class="mb-3">
-            <label for="idActeur" class="form-label">Acteur à modifier : 
-                <?= $acteur["acteur"] ?></label>
+            <label for="idActeur" class="form-label titreForm">Acteur à modifier : <strong><?= $acteur["acteur"] ?></strong>
+                </label>
         </div>
         <div class="mb-3">
             <label for="prenom" class="form-label">Prénom :</label>

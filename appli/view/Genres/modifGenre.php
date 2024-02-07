@@ -15,8 +15,8 @@ $titre_secondaire = "Formulaire de modification de genre";
 <form action="index.php?action=modifGenre&id=<?= $id ?>" method="POST">
 
     <div class="mb-3">
-        <label for="idGenre" class="form-label label">Genre à modifier :
-             <?= $genre?>
+        <label for="idGenre" class="form-label titreForm">Genre à modifier : <strong>  <?= $genre?></strong>
+           
             </label>
     </div>
     <div class="mb-3">

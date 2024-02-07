@@ -185,8 +185,18 @@ class FilmController {
 
     public function modifFilm($id) {
         $pdo = Connect::seConnecter();
+        
+        // on recupere l'acteur à modifier
+        $requeteFilm = $pdo->prepare("
+        SELECT *
+        FROM film
     
-        // Récupération de la liste des réalisateurs
+        WHERE id_film = :id;
+    
+        ");
+        $requeteFilm->execute([":id" => $id]);
+        $film = $requeteFilm->fetch();
+
         $requeteRealisateurs = $pdo->query("
             SELECT 
                 realisateur.id_real, 
@@ -197,8 +207,7 @@ class FilmController {
                 personne ON realisateur.id_personne = personne.id_personne");
     
         $realisateurs = $requeteRealisateurs->fetchAll();
-    
-        // Récupération de la liste des genres
+
         $requeteGenres = $pdo->query("
             SELECT 
                 id_genre,
@@ -208,20 +217,11 @@ class FilmController {
     
         $genres = $requeteGenres->fetchAll();
     
-        // Récupération du film à modifier
-        $requeteFilm = $pdo->prepare("
-            SELECT
-                *
-            FROM film
-        ");
-        $requeteFilm->execute();
-        $films = $requeteFilm->fetchAll();
     
-        
     
         if (isset($_POST["submit"])) {
             // Sanitization des entrées
-            $filmId = filter_input(INPUT_POST, "idFilm", FILTER_SANITIZE_NUMBER_INT);
+            
             $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_STRING);
             $dateSortieFrance = filter_input(INPUT_POST, "dateSortieFrance", FILTER_SANITIZE_STRING);
             $duree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_NUMBER_INT);
@@ -241,35 +241,36 @@ class FilmController {
                     resume = :resume,
                     note = :note,
                     affiche = :affiche,
-                    id_realisateur = :idRealisateur
+                    id_real = :idRealisateur
                 WHERE 
-                    id_film = :idFilm
+                    id_film = :id
             ");
             $requeteModif->execute([
-                ":idFilm" => $filmId,
                 ":titre" => $titre,
                 ":dateSortieFrance" => $dateSortieFrance,
                 ":duree" => $duree,
                 ":resume" => $resume,
                 ":note" => $note,
                 ":affiche" => $affiche,
-                ":idRealisateur" => $idRealisateur
+                ":idRealisateur" => $idRealisateur,
+                ":id" => $id // Ajout de ce paramètre manquant
             ]);
+            
     
             // Mettre à jour les genres du film
             // Supprimer d'abord les genres existants du film
             $pdo->prepare("
             DELETE FROM categorise 
-            WHERE id_film = :idFilm")
-            ->execute([":idFilm" => $filmId]);
+            WHERE id_film = :id")
+            ->execute([":id" => $id]);
 
             // Insérer les nouveaux genres sélectionnés
             foreach ($idGenres as $idGenre) {
                 $pdo->prepare("
                 INSERT INTO categorise (id_film, id_genre) 
-                VALUES (:idFilm, :idGenre)")
+                VALUES (:id, :idGenre)")
                 ->execute([
-                    ":idFilm" => $filmId,
+                    ":id" => $id,
                     ":idGenre" => $idGenre
                 ]);
             }

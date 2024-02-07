@@ -42,16 +42,19 @@
     </nav>
 
     <div id="wrapper">
-        
-    
         <?= $content ?>
     </div>
 
+    <script src="public/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
-<script src="public/js/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <footer class="footer mt-auto py-3 text-white">
+        <div class="text-center">
+            <span>AmineBncd @ ElanFormation | <a class="nav-item link" href="lien_vers_votre_reseau_1">Réseau 1</a> | <a class="nav-item link" href="lien_vers_votre_reseau_2">Réseau 2</a></span>  
+        </div>
+    </footer>
 
 </body>
 </html>

@@ -49,6 +49,7 @@ class RealController {
         $requeteFilmo = $pdo->prepare("
             SELECT 
             id_film,
+            affiche,
             id_real,
             titre, 
             date_sortie_france

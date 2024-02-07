@@ -49,6 +49,11 @@ $titre_secondaire = "Détails du film";
 
 </div>
 
+<div class="container buttons">
+    <a class="btn btn-outline-primary" href="index.php?action=modifFilm&id=<?= $id ?>" class="btn">Modifier le film</a>
+    <a class="btn btn-outline-danger" href="index.php?action=deleteFilm&id=<?= $id ?>" class="btn">supprimer le film</a>
+</div> 
+
 <?php
 $content = ob_get_clean();
 require 'view/template.php';

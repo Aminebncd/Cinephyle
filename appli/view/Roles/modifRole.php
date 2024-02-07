@@ -12,8 +12,10 @@ $titre_secondaire = "Formulaire de modification de rôle";
 
         <form action="index.php?action=modifRole&id=<?=$id?>" method="POST">
         <div class="mb-3">
-            <label for="idRole" class="form-label">Rôle à modifier :
+            <label for="idRole" class="form-label titreForm">Rôle à modifier : <strong>
+
                 <?= $role ?>
+            </strong>
             </label>
     
         </div>

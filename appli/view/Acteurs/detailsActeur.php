@@ -20,13 +20,18 @@ $titre_secondaire = "Détail de l'acteur";
             <div class="detActCorps">
             <a href="<?= $acteur['lien_wiki'] ?>">lien wikipedia</a>
             <p><strong>date de naissance:</strong> <?= date('d/m/Y', strtotime($acteur['date_naissance'])) ?></p>
-            
-            <p class="cast">Rôles incarnés :</p>
-
-            <?php $roles = $requeteRoles->fetchAll();
-            foreach($roles as $role) { ?>
-                <p><a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role'] ?>"><?= $role['role'] ?></a> dans <a class="link" href="index.php?action=detailsFilm&id=<?= $role['id_film']?>"><?= $role['titre'] ?> (<?= date('Y', strtotime($role['date_sortie_france'])) ?>)</a></p>
-            <?php }  ?>
+            <div class="casting">
+                <p class="castLabel">Rôles incarnés :</p>
+    
+                <?php $roles = $requeteRoles->fetchAll();
+                foreach($roles as $role) { ?>
+                    <p><a class="link" href="index.php?action=detailsRole&id=<?= $role['id_role'] ?>"><?= $role['role'] ?></a> dans <a class="link" href="index.php?action=detailsFilm&id=<?= $role['id_film']?>"><?= $role['titre'] ?> (<?= date('Y', strtotime($role['date_sortie_france'])) ?>)</a></p>
+                <?php }  ?>
+            </div>
+            <div class="container buttons">
+                <a class="btn btn-outline-primary" href="index.php?action=modifActeur&id=<?= $id ?>" class="btn">Modifier l'acteur</a>
+                <a class="btn btn-outline-danger" href="index.php?action=deleteActeur&id=<?= $id ?>" class="btn">supprimer l'acteur</a>
+            </div> 
             </div>
         </div>
     <?php } else { ?>
@@ -36,10 +41,7 @@ $titre_secondaire = "Détail de l'acteur";
 
 </div>
 
-<div class="container buttons">
-    <a class="btn btn-outline-primary" href="index.php?action=modifActeur&id=<?= $id ?>" class="btn">Modifier l'acteur</a>
-    <a class="btn btn-outline-danger" href="index.php?action=deleteActeur&id=<?= $id ?>" class="btn">supprimer l'acteur</a>
-</div> 
+
 
 <?php
 

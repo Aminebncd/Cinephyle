@@ -19,17 +19,23 @@ $titre_secondaire = "Détail du réalisateur";
         <p><strong>date de naissance:</strong> <?= date('d/m/Y', strtotime($real['date_naissance'])) ?></p>
         </div>
 
-        <h3 class="cast">Films réalisés :</h3>
-    
+        <h3 class="cast">Filmographie :</h3>
+        <div class="filmoContainer">
         <?php $films = $requeteFilmo->fetchAll(); 
-        // var_dump($casting);
-        foreach($films as $film) { ?>
-        <a class="link" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>"><?= $film['titre'] ?> (<?= $film['date_sortie_france'] ?>)</a>
             
-        <?php }  ?>
-    <?php } else { ?>
-        <p>Aucun détail n'a été trouvé pour ce réalisateur.</p>
-    <?php } ?>
+            foreach ($films as $film) : ?>
+                <div class="filmCard">
+                    <a class="link" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>">
+                        <img class="afficheDetReal" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>" >    
+                        <div class="titleDet"><?= $film['titre']?></div>
+                    </a>
+                </div>
+            <?php endforeach; ?> 
+    
+        <?php } else { ?>
+            <p>Aucun détail n'a été trouvé pour ce réalisateur.</p>
+        <?php } ?>
+        </div>
 
 </div>
 
