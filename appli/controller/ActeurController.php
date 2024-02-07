@@ -6,93 +6,82 @@ use Model\Connect;
 
 class ActeurController {
 
-    // lister les acteurs
+    // Fonction pour lister les acteurs
     public function listActeurs() {
-
-        // se connete à ma base de données
+        // Connexion à la base de données
         $pdo = Connect::seConnecter();
         
-        // recupere les champs voulues
+        // Récupération des informations sur les acteurs avec leur nom complet et leur portrait
         $requeteNom = $pdo->query("
             SELECT
-             
             id_acteur, 
-            CONCAT (prenom, ' ', nom) AS nom,
+            CONCAT(prenom, ' ', nom) AS nom,
             portrait
-
             FROM acteur
-            
-            INNER JOIN personne on acteur.id_personne = personne.id_personne
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne
             ORDER BY nom DESC
-            ");
+        ");
 
+        // Récupération des informations sur les acteurs avec leur nom complet et leur portrait, triés par ID décroissant
         $requeteDate = $pdo->query("
             SELECT
-            
             id_acteur, 
-            CONCAT (prenom, ' ', nom) AS nom,
+            CONCAT(prenom, ' ', nom) AS nom,
             portrait
-            
             FROM acteur
-            
-            INNER JOIN personne on acteur.id_personne = personne.id_personne
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne
             ORDER BY id_acteur DESC
-            ");
+        ");
 
-        // inclusion de la page listActeurs
+        // Inclusion de la vue pour afficher la liste des acteurs
         require "view/Acteurs/listActeurs.php";
     }
 
-    // detail l'acteur sur lequel on clique en recuperant ses infos ainsi que les roles ainsi que les titres des films dans lesquels il a joué
+    // Fonction pour afficher les détails d'un acteur, y compris ses rôles et les titres des films dans lesquels il a joué
     public function detailsActeur($id) {
         $pdo = Connect::seConnecter();
     
+        // Requête pour récupérer les informations sur un acteur en fonction de son ID
         $requeteActeur = $pdo->prepare("
         SELECT 
-
         id_acteur,
         lien_wiki,
         portrait, 
-        CONCAT (prenom, ' ', nom) AS nom, 
+        CONCAT(prenom, ' ', nom) AS nom, 
         date_naissance
-
         FROM acteur
-
-        INNER JOIN personne on acteur.id_personne = personne.id_personne
-            
-            WHERE id_acteur = :id
+        INNER JOIN personne ON acteur.id_personne = personne.id_personne
+        WHERE id_acteur = :id
         ");
-
         $requeteActeur->execute([":id" => $id]);
+        
+        // Requête pour récupérer les rôles d'un acteur dans les films
         $requeteRoles = $pdo->prepare("
             SELECT 
-            
             film.id_film,
             id_acteur,
             date_sortie_france,
             role, 
             role.id_role,
             titre
-
             FROM casting
-            
             INNER JOIN role ON casting.id_role = role.id_role
             INNER JOIN film ON casting.id_film = film.id_film
-
             WHERE id_acteur = :id
         "); 
         $requeteRoles->execute([":id" => $id]);
         
+        // Inclusion de la vue pour afficher les détails de l'acteur
         require "view/Acteurs/detailsActeur.php";
     }
 
-    // fonction d'ajout d'acteur fonctionnant avec un formulaire
+    // Fonction pour ajouter un nouvel acteur
     public function ajoutActeur() {
-        // si on recupere des input en POST on rentre dans la fonction
         if (isset($_POST["submit"])) {
+            // Connexion à la base de données
             $pdo = Connect::seConnecter();
             
-            // filtrage et nettoyage des inputs recupérés
+            // Filtrage et nettoyage des entrées POST
             $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $sexe = filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -100,7 +89,7 @@ class ActeurController {
             $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
             $lienWikipedia = filter_input(INPUT_POST, "lienWikipedia", FILTER_SANITIZE_URL);
             
-            // si tous les inputs sont bons, on les insere dans la rable 'personne' sous les bons champs
+            // Vérification et insertion des données dans la table 'personne'
             if ($nom && $prenom && $sexe && $dateNaissance && $portrait && $lienWikipedia) {
     
                 $requeteAjout = $pdo->prepare("
@@ -117,32 +106,35 @@ class ActeurController {
                     ":lienWikipedia" => $lienWikipedia
                 ]);
                 
-                // on recupère l'id fraichement incrémenté de la personne créée
+                // Récupération de l'ID de la personne nouvellement créée
                 $id_personne = $pdo->lastInsertId();
-                // et on l'injecte dans la table acteur
+                
+                // Insertion de l'ID de la personne dans la table 'acteur'
                 $requeteAjoutActeur = $pdo->prepare("
-                INSERT INTO acteur (id_personne)
-                VALUES (:id_personne)
+                    INSERT INTO acteur (id_personne)
+                    VALUES (:id_personne)
                 ");
                 
                 $requeteAjoutActeur->execute([
                     ":id_personne" => $id_personne
                 ]);
     
+                // Redirection vers la liste des acteurs après l'ajout
                 header("Location: index.php?action=listActeurs");
             }
         }
         
+        // Inclusion de la vue pour afficher le formulaire d'ajout d'acteur
         require "view/Acteurs/ajoutActeur.php";
     }
 
+    // Fonction pour modifier un acteur
     public function modifActeur($id) {
         $pdo = Connect::seConnecter();
         
-        // on recupere l'acteur à modifier
+        // Récupération des informations sur l'acteur à modifier
         $requeteActeur = $pdo->prepare("
         SELECT
-        
         personne.id_personne,
         personne.lien_wiki,
         personne.portrait,
@@ -152,24 +144,20 @@ class ActeurController {
         personne.date_naissance
         FROM personne
         INNER JOIN acteur ON acteur.id_personne = personne.id_personne
-        WHERE id_acteur = :id;
-    
+        WHERE id_acteur = :id
         ");
         $requeteActeur->execute([":id" => $id]);
         $acteur = $requeteActeur->fetch();
-        // var_dump($acteur);
-    
     
         if (isset($_POST["submit"])) {
-            // Sanitize l'input
-           
+            // Sanitization des entrées POST
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
             $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_STRING);
             $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
             $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
             $date_naissance = filter_input(INPUT_POST, "date_naissance", FILTER_SANITIZE_STRING);
     
-            // mise à jour des infos
+            // Mise à jour des informations de l'acteur
             $requeteModif = $pdo->prepare("
                 UPDATE personne
                 SET prenom = :prenom,
@@ -188,17 +176,20 @@ class ActeurController {
                 ":date_naissance" => $date_naissance
             ]);
     
-            // Redirection apres modification
+            // Redirection après modification
             header("Location: index.php?action=listActeurs");
             exit(); 
         }
     
+        // Inclusion de la vue pour afficher le formulaire de modification d'acteur
         require "view/Acteurs/modifActeur.php";
     }
 
+    // Fonction pour supprimer un acteur
     public function deleteActeur($id) {
         $pdo = Connect::seConnecter();
     
+        // Suppression de l'acteur de la base de données
         $requeteDelete = $pdo->prepare("
         DELETE FROM acteur
         WHERE id_acteur = :id
@@ -207,17 +198,17 @@ class ActeurController {
         $success = $requeteDelete->execute([":id" => $id]);
 
         if ($success) {
+            // Redirection vers la liste des acteurs après la suppression
             header("Location: index.php?action=listActeurs");
             exit();
         } else {
-            // Handle error, display error message or log it
+            // Gestion de l'erreur en cas d'échec de la suppression
             echo "Error occurred while updating acteur.";
         }
 
-
+        // Inclusion de la vue pour afficher la suppression de l'acteur
         require "view/Acteurs/deleteActeur.php";
-        
     }
-    
-
 }
+
+?>

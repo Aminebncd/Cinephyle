@@ -6,144 +6,133 @@ use Model\Connect;
 
 class RoleController {
 
+    // Fonction pour lister tous les rôles
     public function listRoles() {
         $pdo = Connect::seConnecter();
     
+        // Requête pour récupérer tous les rôles
         $requeteRoles = $pdo->query("
-            SELECT 
-
-            *
-            
+            SELECT *
             FROM role
             ORDER BY role ASC
-            
-            ");
+        ");
 
-            require "view/Roles/listRoles.php";
-        }
-        
+        // Inclusion de la vue pour afficher la liste des rôles
+        require "view/Roles/listRoles.php";
+    }
+
+    // Fonction pour afficher les détails d'un rôle, y compris les acteurs associés
     public function detailsRole($id) {
         $pdo = Connect::seConnecter();
             
+        // Requête pour récupérer les acteurs associés à ce rôle
         $requeteHisto = $pdo->prepare("
             SELECT 
-
-            CONCAT(prenom, ' ',nom) AS acteur,
+            CONCAT(prenom, ' ', nom) AS acteur,
             acteur.id_acteur,
             film.id_film,
             titre
-
-            
             FROM casting
+            INNER JOIN Role ON casting.id_Role = Role.id_Role
+            INNER JOIN film ON casting.id_film = film.id_film
+            INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne
+            WHERE role.id_role = :id
+        "); 
+        $requeteHisto->execute([":id" => $id]);
 
-            INNER JOIN Role on casting.id_Role = Role.id_Role
-            INNER JOIN film on casting.id_film = film.id_film
-            INNER JOIN acteur on casting.id_acteur = acteur.id_acteur
-            INNER JOIN personne on acteur.id_personne = personne.id_personne
-            
-
-            
-            where role.id_role = :id
-            
-            "); 
-            $requeteHisto->execute([":id" => $id]);
-
-            $requeteNomRole = $pdo->prepare("
+        // Requête pour récupérer le nom du rôle
+        $requeteNomRole = $pdo->prepare("
             SELECT 
             role
             FROM role
-            
-            where role.id_role = :id
-            
-            "); 
-            $requeteNomRole->execute([":id" => $id]);
+            WHERE role.id_role = :id
+        "); 
+        $requeteNomRole->execute([":id" => $id]);
 
+        // Inclusion de la vue pour afficher les détails du rôle
+        require "view/Roles/detailsRole.php";
+    }
 
-            require "view/Roles/detailsRole.php";
-        }
-
-        public function ajoutRole() {
-
-            if(isset($_POST["submit"])) {
-
-                $pdo = Connect ::seConnecter();
-                
-                $intitule = filter_input(INPUT_POST, "intitule", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-              
-                if ($intitule) {
-                    
-                    $requeteAjout = $pdo->prepare("
+    // Fonction pour ajouter un nouveau rôle
+    public function ajoutRole() {
+        if(isset($_POST["submit"])) {
+            $pdo = Connect::seConnecter();
+            $intitule = filter_input(INPUT_POST, "intitule", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+          
+            if ($intitule) {
+                // Requête pour ajouter un nouveau rôle dans la base de données
+                $requeteAjout = $pdo->prepare("
                     INSERT INTO role (role) VALUES (:intitule)
-                    ");
-                    $requeteAjout->execute([":intitule" => $intitule]);
-    
-                    header("Location: index.php?action=listRoles");
-                }
+                ");
+                $requeteAjout->execute([":intitule" => $intitule]);
+                header("Location: index.php?action=listRoles");
             }
-            require "view/Roles/ajoutRole.php";
         }
+        // Inclusion de la vue pour afficher le formulaire d'ajout de rôle
+        require "view/Roles/ajoutRole.php";
+    }
 
-        public function modifRole($id) {
-            
-            $pdo = Connect ::seConnecter();
-            $requeteRole = $pdo->prepare("
+    // Fonction pour modifier un rôle
+    public function modifRole($id) {
+        $pdo = Connect::seConnecter();
+        
+        // Récupération des informations sur le rôle à modifier
+        $requeteRole = $pdo->prepare("
             SELECT 
             id_role,
             role
             FROM role
-            
-            WHERE id_role = :id;
-            ");
-            
-            $role = $requeteRole->execute([":id" => $id]);
-            $roleData = $requeteRole->fetch();
-            
-            $role = $roleData['role'];
-            $id = $roleData['id_role'];
-            
-                // var_dump($role);
-            
-            if (isset($_POST["submit"])) {
-                // var_dump($_POST);die;
+            WHERE id_role = :id
+        ");
+        $requeteRole->execute([":id" => $id]);
+        $roleData = $requeteRole->fetch();
         
-                $roleModifie = filter_input(INPUT_POST, "roleModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
-                if ($roleModifie) {
-                    $requeteModif = $pdo->prepare("
+        $role = $roleData['role'];
+        $id = $roleData['id_role'];
+        
+        if (isset($_POST["submit"])) {
+            $roleModifie = filter_input(INPUT_POST, "roleModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($roleModifie) {
+                // Requête pour modifier le rôle dans la base de données
+                $requeteModif = $pdo->prepare("
                     UPDATE role
                     SET role = :roleModifie
-                    where id_role = :id
-                    ");
-                    $requeteModif->execute([":id" => $id,
-                                ":roleModifie" => $roleModifie]);
-                    }
-                    header("Location: index.php?action=listRoles");
-                    exit(); 
-                }
-                require "view/roles/modifRole.php";
-            }
-            
-            public function deleteRole($id) {
-                $pdo = Connect::seConnecter();
-            
-                $requeteDelete = $pdo->prepare("
-                DELETE FROM role
-                WHERE id_role = :id
+                    WHERE id_role = :id
                 ");
-                
-                $success = $requeteDelete->execute([":id" => $id]);
-    
-                if ($success) {
-                    header("Location: index.php?action=listRoles");
-                    exit();
-                } else {
-                    // Handle error, display error message or log it
-                    echo "Error occurred while updating Role.";
-                }
-    
-    
-                require "view/Roles/deleteRole.php";
-                
-        
+                $requeteModif->execute([
+                    ":id" => $id,
+                    ":roleModifie" => $roleModifie
+                ]);
             }
+            header("Location: index.php?action=listRoles");
+            exit(); 
+        }
+        // Inclusion de la vue pour afficher le formulaire de modification de rôle
+        require "view/Roles/modifRole.php";
+    }
+
+    // Fonction pour supprimer un rôle
+    public function deleteRole($id) {
+        $pdo = Connect::seConnecter();
+    
+        // Suppression du rôle de la base de données
+        $requeteDelete = $pdo->prepare("
+            DELETE FROM role
+            WHERE id_role = :id
+        ");
+        $success = $requeteDelete->execute([":id" => $id]);
+
+        if ($success) {
+            header("Location: index.php?action=listRoles");
+            exit();
+        } else {
+            // Gestion de l'erreur en cas d'échec de la suppression
+            echo "Error occurred while updating Role.";
+        }
+
+        // Inclusion de la vue pour afficher la suppression du rôle
+        require "view/Roles/deleteRole.php";
+    }
 }

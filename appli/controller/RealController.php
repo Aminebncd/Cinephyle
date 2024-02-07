@@ -6,46 +6,43 @@ use Model\Connect;
 
 class RealController {
 
-    // lister les films
+    // Fonction pour lister tous les réalisateurs
     public function listReals() {
-
         $pdo = Connect::seConnecter();
         
+        // Requête pour récupérer tous les réalisateurs
         $requete = $pdo->query("
-            SELECT id_real, 
-            CONCAT (
-                prenom, ' ', nom
-                ) AS nom,
-                portrait
-
+            SELECT 
+            id_real, 
+            CONCAT(prenom, ' ', nom) AS nom,
+            portrait
             FROM realisateur
-
-            INNER JOIN personne on realisateur.id_personne = personne.id_personne
+            INNER JOIN personne ON realisateur.id_personne = personne.id_personne
         ");
 
+        // Inclusion de la vue pour afficher la liste des réalisateurs
         require "view/Réalisateurs/listReals.php";
     }
 
+    // Fonction pour afficher les détails d'un réalisateur, y compris les films qu'il a réalisés
     public function detailsReal($id) {
         $pdo = Connect::seConnecter();
     
+        // Requête pour récupérer les détails du réalisateur
         $requeteReal = $pdo->prepare("
-        SELECT id_real,
-        lien_wiki,
-        portrait, 
-        CONCAT (
-            prenom, ' ', nom
-            ) AS nom, 
+            SELECT 
+            id_real,
+            lien_wiki,
+            portrait, 
+            CONCAT(prenom, ' ', nom) AS nom, 
             date_naissance
-
-        FROM realisateur
-
-        INNER JOIN personne on realisateur.id_personne = personne.id_personne
-            
+            FROM realisateur
+            INNER JOIN personne ON realisateur.id_personne = personne.id_personne
             WHERE id_real = :id
         ");
-
         $requeteReal->execute([":id" => $id]);
+        
+        // Requête pour récupérer les films réalisés par ce réalisateur
         $requeteFilmo = $pdo->prepare("
             SELECT 
             id_film,
@@ -53,21 +50,21 @@ class RealController {
             id_real,
             titre, 
             date_sortie_france
-
             FROM film
-
             WHERE id_real = :id
         "); 
         $requeteFilmo->execute([":id" => $id]);
         
+        // Inclusion de la vue pour afficher les détails du réalisateur
         require "view/Réalisateurs/detailsReal.php";
     }
     
+    // Fonction pour ajouter un nouveau réalisateur
     public function ajoutReal() {
-
         if (isset($_POST["submit"])) {
             $pdo = Connect::seConnecter();
     
+            // Filtrage et nettoyage des entrées POST
             $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $sexe = filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -75,6 +72,7 @@ class RealController {
             $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
             $lienWikipedia = filter_input(INPUT_POST, "lienWikipedia", FILTER_SANITIZE_URL);
     
+            // Vérification des entrées et insertion du nouveau réalisateur dans la base de données
             if ($nom && $prenom && $sexe && $dateNaissance && $portrait && $lienWikipedia) {
     
                 $requeteAjout = $pdo->prepare("
@@ -106,43 +104,40 @@ class RealController {
             }
         }
         
+        // Inclusion de la vue pour afficher le formulaire d'ajout de réalisateur
         require "view/Réalisateurs/ajoutReal.php";
     }
 
+    // Fonction pour modifier un réalisateur
     public function modifReal($id) {
         $pdo = Connect::seConnecter();
         
-        // on recupere le realisateur à modifier
+        // Récupération des informations sur le réalisateur à modifier
         $requeteReal = $pdo->prepare("
-        SELECT
-        
-        personne.id_personne,
-        personne.lien_wiki,
-        personne.portrait,
-        personne.nom,
-        personne.prenom,
-        CONCAT(personne.prenom, ' ', personne.nom) AS realisateur,
-        personne.date_naissance
-        FROM personne
-        INNER JOIN realisateur ON realisateur.id_personne = personne.id_personne
-        WHERE id_real = :id;
-    
+            SELECT 
+            personne.id_personne,
+            personne.lien_wiki,
+            personne.portrait,
+            personne.nom,
+            personne.prenom,
+            CONCAT(personne.prenom, ' ', personne.nom) AS realisateur,
+            personne.date_naissance
+            FROM personne
+            INNER JOIN realisateur ON realisateur.id_personne = personne.id_personne
+            WHERE id_real = :id;
         ");
         $requeteReal->execute([":id" => $id]);
         $realisateur = $requeteReal->fetch();
-        // var_dump($realisateur);
-    
     
         if (isset($_POST["submit"])) {
-            // Sanitize l'input
-           
+            // Sanitization des inputs
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
             $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_STRING);
             $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
             $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
             $date_naissance = filter_input(INPUT_POST, "date_naissance", FILTER_SANITIZE_STRING);
     
-            // mise à jour des infos
+            // Mise à jour des informations sur le réalisateur
             $requeteModif = $pdo->prepare("
                 UPDATE personne
                 SET prenom = :prenom,
@@ -161,35 +156,36 @@ class RealController {
                 ":date_naissance" => $date_naissance
             ]);
     
-            // Redirection apres modification
+            // Redirection après modification
             header("Location: index.php?action=listReals");
             exit(); 
         }
     
+        // Inclusion de la vue pour afficher le formulaire de modification de réalisateur
         require "view/Réalisateurs/modifReal.php";
     }
 
+    // Fonction pour supprimer un réalisateur
     public function deleteReal($id) {
         $pdo = Connect::seConnecter();
     
+        // Suppression du réalisateur de la base de données
         $requeteDelete = $pdo->prepare("
-        DELETE FROM realisateur
-        WHERE id_real = :id
+            DELETE FROM realisateur
+            WHERE id_real = :id
         ");
-        
         $success = $requeteDelete->execute([":id" => $id]);
 
         if ($success) {
+            // Redirection vers la liste des réalisateurs après la suppression
             header("Location: index.php?action=listReals");
             exit();
         } else {
-            // Handle error, display error message or log it
+            // Gestion de l'erreur en cas d'échec de la suppression
             echo "Error occurred while updating realisateur.";
         }
 
-
+        // Inclusion de la vue pour afficher la suppression du réalisateur
         require "view/Réalisateurs/deleteReal.php";
-        
     }
-
 }

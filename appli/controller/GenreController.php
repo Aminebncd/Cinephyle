@@ -6,190 +6,153 @@ use Model\Connect;
 
 class GenreController {
 
+    // Fonction pour lister tous les genres
     public function listGenres() {
         $pdo = Connect::seConnecter();
     
+        // Requête pour récupérer tous les genres
         $requeteGenre = $pdo->query("
             SELECT 
-
             id_genre,
             libelle
-            
             FROM genre
-            
-            ");
+        ");
 
-            require "view/Genres/listGenres.php";
-        }
-        
+        // Inclusion de la vue pour afficher la liste des genres
+        require "view/Genres/listGenres.php";
+    }
+    
+    // Fonction pour afficher les détails d'un genre, y compris les films associés à ce genre
     public function detailsGenre($id) {
         $pdo = Connect::seConnecter();
-            
+        
+        // Requête pour récupérer les films associés à un genre spécifique
         $requeteCate = $pdo->prepare("
             SELECT 
-            
             libelle,
             film.id_film,
             titre
-            
             FROM categorise
-
-            INNER JOIN genre on categorise.id_genre = genre.id_genre
-            INNER JOIN film on categorise.id_film = film.id_film
-            
-            where genre.id_genre = :id
-            
-            "); 
-            $requeteCate->execute([":id" => $id]);
-
-            $requeteNomGenre = $pdo->prepare("
+            INNER JOIN genre ON categorise.id_genre = genre.id_genre
+            INNER JOIN film ON categorise.id_film = film.id_film
+            WHERE genre.id_genre = :id
+        "); 
+        $requeteCate->execute([":id" => $id]);
+        
+        // Requête pour récupérer les détails du genre
+        $requeteNomGenre = $pdo->prepare("
             SELECT 
             id_genre,
             libelle
             FROM genre
-            
-            where genre.id_genre = :id
-            
-            "); 
-            $requeteNomGenre->execute([":id" => $id]);
-            // var_dump($requeteNomGenre->fetchAll());
-            require "view/Genres/detailsGenre.php";
+            WHERE genre.id_genre = :id
+        "); 
+        $requeteNomGenre->execute([":id" => $id]);
         
-        }
-        
-        public function ajoutGenre() {
-
-            if(isset($_POST["submit"])) {
-
-                $pdo = Connect ::seConnecter();
-                
-                $libelle = filter_input(INPUT_POST, "libelle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-              
-                if ($libelle) {
-                    
-                    $requeteAjout = $pdo->prepare("
-                    INSERT INTO genre (libelle) VALUES (:libelle)
-                    ");
-                    $requeteAjout->execute([":libelle" => $libelle]);
+        // Inclusion de la vue pour afficher les détails du genre
+        require "view/Genres/detailsGenre.php";
+    }
     
-                    header("Location: index.php?action=listGenres");
-                }
-            }
-            require "view/Genres/ajoutGenre.php";
-        }
-
-        // public function modifGenre($id) {
-            
-        // $pdo = Connect ::seConnecter();
-        // $requeteGenres = $pdo->query("
-        // SELECT 
-        
-        // id_genre,
-        // libelle
-        
-        // FROM genre");
-        
-        // $genres = $requeteGenres->fetchAll();
-        
-        // if (isset($_POST["submit"])) {
-        //     // var_dump($_POST);die;
-            // $genreId = filter_input(INPUT_POST, "idGenre", FILTER_SANITIZE_NUMBER_INT);
-        //     $genreModifie = filter_input(INPUT_POST, "genreModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        //     if ($genreModifie) {
-        //         $requeteModif = $pdo->prepare("
-        //         UPDATE genre
-        //         SET libelle = :genreModifie
-        //         where id_genre = :id
-        //         ");
-        //         $requeteModif->execute([":id" => $genreId,
-        //                     ":genreModifie" => $genreModifie]);
-        //         }
-        //         header("Location: index.php?action=listGenres");
-        //         exit(); 
-        //     }
-        //     require "view/Genres/modifGenre.php";
-        // }
-        
-       
-        public function modifGenre($id) {
+    // Fonction pour ajouter un nouveau genre
+    public function ajoutGenre() {
+        if(isset($_POST["submit"])) {
             $pdo = Connect::seConnecter();
+            
+            // Filtrage et nettoyage des entrées POST
+            $libelle = filter_input(INPUT_POST, "libelle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            if ($libelle) {
+                // Insertion du nouveau genre dans la base de données
+                $requeteAjout = $pdo->prepare("
+                    INSERT INTO genre (libelle) VALUES (:libelle)
+                ");
+                $requeteAjout->execute([":libelle" => $libelle]);
+    
+                // Redirection vers la liste des genres après l'ajout
+                header("Location: index.php?action=listGenres");
+            }
+        }
+        // Inclusion de la vue pour afficher le formulaire d'ajout de genre
+        require "view/Genres/ajoutGenre.php";
+    }
+
+    // Fonction pour modifier un genre
+    public function modifGenre($id) {
+        $pdo = Connect::seConnecter();
         
-            $requeteGenre = $pdo->prepare("
-                SELECT 
-                    id_genre,
-                    libelle
-                FROM genre
-                WHERE id_genre = :id
-            ");
-            $requeteGenre->execute([":id" => $id]);
+        // Récupération des informations sur le genre à modifier
+        $requeteGenre = $pdo->prepare("
+            SELECT 
+            id_genre,
+            libelle
+            FROM genre
+            WHERE id_genre = :id
+        ");
+        $requeteGenre->execute([":id" => $id]);
         
-            // Fetch the genre data
-            $genreData = $requeteGenre->fetch();
+        // Vérification si les données du genre ont été récupérées avec succès
+        $genreData = $requeteGenre->fetch();
+        if ($genreData) {
+            // Récupération des données du genre
+            $genre = $genreData['libelle'];
+            $id = $genreData['id_genre'];
         
-            // Check if genre data is fetched successfully
-            if ($genreData) {
-                $genre = $genreData['libelle'];
-                $id = $genreData['id_genre'];
-        
-                if (isset($_POST["submit"])) {
-                    $genreModifie = filter_input(INPUT_POST, "genreModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    if ($genreModifie) {
-                        $requeteModif = $pdo->prepare("
-                            UPDATE genre
-                            SET libelle = :genreModifie
-                            WHERE id_genre = :id
-                        ");
-                        $success = $requeteModif->execute([
-                            ":id" => $id,
-                            ":genreModifie" => $genreModifie
-                        ]);
-                        if ($success) {
-                            header("Location: index.php?action=listGenres");
-                            exit();
-                        } else {
-                            // Handle error, display error message or log it
-                            echo "Error occurred while updating genre.";
-                        }
+            if (isset($_POST["submit"])) {
+                // Filtrage de l'entrée POST
+                $genreModifie = filter_input(INPUT_POST, "genreModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                
+                if ($genreModifie) {
+                    // Mise à jour du genre dans la base de données
+                    $requeteModif = $pdo->prepare("
+                        UPDATE genre
+                        SET libelle = :genreModifie
+                        WHERE id_genre = :id
+                    ");
+                    $success = $requeteModif->execute([
+                        ":id" => $id,
+                        ":genreModifie" => $genreModifie
+                    ]);
+                    if ($success) {
+                        // Redirection vers la liste des genres après la modification
+                        header("Location: index.php?action=listGenres");
+                        exit();
+                    } else {
+                        // Gestion de l'erreur en cas d'échec de la modification
+                        echo "Error occurred while updating genre.";
                     }
                 }
-            } else {
-                // Handle case where genre data is not found
-                echo "Genre not found.";
-                exit();
             }
-        
-            // Pass $genre and $id to the view
-            require "view/Genres/modifGenre.php";
+        } else {
+            // Gestion du cas où les données du genre ne sont pas trouvées
+            echo "Genre not found.";
+            exit();
         }
-
-
-        public function deleteGenre($id) {
-            $pdo = Connect::seConnecter();
         
-            $requeteDelete = $pdo->prepare("
+        // Inclusion de la vue pour afficher le formulaire de modification de genre
+        require "view/Genres/modifGenre.php";
+    }
+
+    // Fonction pour supprimer un genre
+    public function deleteGenre($id) {
+        $pdo = Connect::seConnecter();
+    
+        // Suppression du genre de la base de données
+        $requeteDelete = $pdo->prepare("
             DELETE FROM genre
             WHERE id_genre = :id
-            ");
-            
-            $success = $requeteDelete->execute([":id" => $id]);
+        ");
+        $success = $requeteDelete->execute([":id" => $id]);
 
-            if ($success) {
-                header("Location: index.php?action=listGenres");
-                exit();
-            } else {
-                // Handle error, display error message or log it
-                echo "Error occurred while updating genre.";
-            }
-
-
-            require "view/Genres/deleteGenre.php";
-            
+        if ($success) {
+            // Redirection vers la liste des genres après la suppression
+            header("Location: index.php?action=listGenres");
+            exit();
+        } else {
+            // Gestion de l'erreur en cas d'échec de la suppression
+            echo "Error occurred while updating genre.";
         }
-        
-        
-        
-            
+
+        // Inclusion de la vue pour afficher la suppression du genre
+        require "view/Genres/deleteGenre.php";
+    }
 }
-
-

@@ -592,7 +592,6 @@ h1 {
 /* +++++++++++++++++++++GENRES+++++++++++++++++++++++++ */
 
 .listGenres {
-  padding-top: 50px;
   display: flex;
   height: 250px;
   align-items: center;

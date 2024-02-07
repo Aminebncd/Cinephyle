@@ -9,16 +9,19 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <!-- Barre de navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark ">
         <a class="navbar-brand" href="index.php">CINEPHYLE</a>
         
+        <!-- Bouton pour la navigation mobile -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
+        <!-- Contenu de la barre de navigation -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                <!-- Liens vers différentes actions de l'application -->
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?action=listFilms">Films</a>
                 </li>
@@ -41,6 +44,7 @@
         </div>
     </nav>
 
+    <!-- Contenu principal -->
     <div id="wrapper">
         <?= $content ?>
     </div>

@@ -31,104 +31,109 @@ class FilmController {
     }
     
 
+    // afficher les détails d'un film
     public function detailsFilm($id) {
         $pdo = Connect::seConnecter();
     
-        
+        // Requête pour récupérer les détails du film spécifié par son ID
         $requeteFilm = $pdo->prepare("
             SELECT 
-
-            film.id_real,
-            affiche,
-            titre, 
-            date_sortie_france, 
-            resume, 
-            note,
-            CONCAT(
-                LPAD(FLOOR(duree / 60), 2, '0'), 
-                'h', 
-                LPAD(duree % 60, 2, '0')
-              ) AS duree_formatée, 
-              CONCAT (
-                  prenom, ' ', nom
-                  ) AS réalisateur
-               
-            FROM film
-            
-            INNER JOIN realisateur ON film.id_real = realisateur.id_real
-            INNER JOIN personne ON realisateur.id_personne = personne.id_personne
-            
-            WHERE id_film = :id
+                film.id_real,
+                affiche,
+                titre, 
+                date_sortie_france, 
+                resume, 
+                note,
+                CONCAT(
+                    LPAD(FLOOR(duree / 60), 2, '0'), 
+                    'h', 
+                    LPAD(duree % 60, 2, '0')
+                ) AS duree_formatée, 
+                CONCAT (
+                    prenom, ' ', nom
+                ) AS réalisateur
+            FROM 
+                film
+            INNER JOIN 
+                realisateur ON film.id_real = realisateur.id_real
+            INNER JOIN 
+                personne ON realisateur.id_personne = personne.id_personne
+            WHERE 
+                id_film = :id
         ");
         $requeteFilm->execute([":id" => $id]);
 
-
+        // Requête pour récupérer le casting du film
         $requeteCasting = $pdo->prepare("
             SELECT 
-            acteur.id_acteur,
-            CONCAT(prenom, ' ',nom) AS acteur, 
-            role,
-            role.id_role
-
-            FROM casting
-            
-            INNER JOIN acteur ON casting.id_acteur = acteur.id_acteur
-            INNER JOIN personne ON acteur.id_personne = personne.id_personne
-            INNER JOIN role ON casting.id_role = role.id_role
-
-            WHERE id_film = :id
+                acteur.id_acteur,
+                CONCAT(prenom, ' ',nom) AS acteur, 
+                role,
+                role.id_role
+            FROM 
+                casting
+            INNER JOIN 
+                acteur ON casting.id_acteur = acteur.id_acteur
+            INNER JOIN 
+                personne ON acteur.id_personne = personne.id_personne
+            INNER JOIN 
+                role ON casting.id_role = role.id_role
+            WHERE 
+                id_film = :id
         "); 
         $requeteCasting->execute([":id" => $id]);
 
-
+        // Requête pour récupérer les genres du film
         $requeteGenre = $pdo->prepare("
             SELECT 
-
-            libelle,
-            genre.id_genre,
-            film.id_film
-           
-            FROM categorise
-
-            INNER JOIN genre on categorise.id_genre = genre.id_genre
-            INNER JOIN film on categorise.id_film = film.id_film
-        
-            WHERE film.id_film = :id
+                libelle,
+                genre.id_genre,
+                film.id_film
+            FROM 
+                categorise
+            INNER JOIN 
+                genre ON categorise.id_genre = genre.id_genre
+            INNER JOIN 
+                film ON categorise.id_film = film.id_film
+            WHERE 
+                film.id_film = :id
         "); 
         $requeteGenre->execute([":id" => $id]);
         
-
+        // inclusion de la vue pour afficher les détails du film
         require "view/Films/detailsFilm.php";
     }
 
     
+    // ajouter un film
     public function ajoutFilm() {
         $pdo = Connect::seConnecter();
     
         // Récupération de la liste des réalisateurs
         $requeteRealisateurs = $pdo->query("
             SELECT 
-            realisateur.id_real, 
-            CONCAT(personne.prenom, ' ', personne.nom) AS nom_realisateur
-
-            FROM realisateur
-            INNER JOIN personne ON realisateur.id_personne = personne.id_personne");
+                realisateur.id_real, 
+                CONCAT(personne.prenom, ' ', personne.nom) AS nom_realisateur
+            FROM 
+                realisateur
+            INNER JOIN 
+                personne ON realisateur.id_personne = personne.id_personne");
     
         $realisateurs = $requeteRealisateurs->fetchAll();
         
         // Récupération de la liste des genres
         $requeteGenres = $pdo->query("
             SELECT 
-
-            id_genre,
-            libelle
-
-            FROM genre");
+                id_genre,
+                libelle
+            FROM 
+                genre");
         
         $genres = $requeteGenres->fetchAll();
     
+        // Traitement du formulaire d'ajout de film
         if (isset($_POST["submit"])) {
-            // Récupération + nettoyage des données du formulaire
+            // Récupération + nettoyage des données du formulaire soumis par l'utilisateur
             $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $dateSortieFrance = filter_input(INPUT_POST, "dateSortieFrance", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $duree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_NUMBER_INT);
@@ -143,8 +148,10 @@ class FilmController {
     
                 // Insertion des données dans la table "film"
                 $requeteAjoutFilm = $pdo->prepare("
-                    INSERT INTO film (titre, date_sortie_france, duree, resume, note, affiche, id_real)
-                    VALUES (:titre, :dateSortieFrance, :duree, :resume, :note, :affiche, :idRealisateur)
+                    INSERT INTO 
+                        film (titre, date_sortie_france, duree, resume, note, affiche, id_real)
+                    VALUES 
+                        (:titre, :dateSortieFrance, :duree, :resume, :note, :affiche, :idRealisateur)
                 ");
     
                 $requeteAjoutFilm->execute([
@@ -157,14 +164,16 @@ class FilmController {
                     ":idRealisateur" => $id_realisateur
                 ]);
 
-                // categorisation du film fraichement ajouté
+                // catégorisation du film fraichement ajouté
                 $id_film = $pdo->lastInsertId();
 
                 // Insertion des catégories associées au film
                 foreach ($id_genres as $id_genre) {
                     $requeteAjoutCategorie = $pdo->prepare("
-                        INSERT INTO categorise (id_film, id_genre)
-                        VALUES (:id_film, :id_genre)
+                        INSERT INTO 
+                            categorise (id_film, id_genre)
+                        VALUES 
+                            (:id_film, :id_genre)
                     ");
 
                     $requeteAjoutCategorie->execute([
@@ -179,24 +188,27 @@ class FilmController {
             }
         }
     
-        // Inclusion du formulaire HTML
+        // Inclusion du formulaire HTML pour ajouter un film
         require "view/Films/ajoutFilm.php";
     }
 
+    // modifier un film
     public function modifFilm($id) {
         $pdo = Connect::seConnecter();
         
-        // on recupere le film à modifier
+        // Récupération des détails du film à modifier
         $requeteFilm = $pdo->prepare("
-        SELECT *
-        FROM film
-    
-        WHERE id_film = :id;
-    
+            SELECT 
+                *
+            FROM 
+                film
+            WHERE 
+                id_film = :id
         ");
         $requeteFilm->execute([":id" => $id]);
         $film = $requeteFilm->fetch();
 
+        // Récupération de la liste des réalisateurs
         $requeteRealisateurs = $pdo->query("
             SELECT 
                 realisateur.id_real, 
@@ -208,20 +220,20 @@ class FilmController {
     
         $realisateurs = $requeteRealisateurs->fetchAll();
 
+        // Récupération de la liste des genres
         $requeteGenres = $pdo->query("
             SELECT 
                 id_genre,
                 libelle
-            FROM genre
+            FROM 
+                genre
             ");
     
         $genres = $requeteGenres->fetchAll();
     
-    
-    
+        // Traitement du formulaire de modification de film
         if (isset($_POST["submit"])) {
             // Sanitization des entrées
-            
             $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_STRING);
             $dateSortieFrance = filter_input(INPUT_POST, "dateSortieFrance", FILTER_SANITIZE_STRING);
             $duree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_NUMBER_INT);
@@ -233,7 +245,8 @@ class FilmController {
     
             // Mise à jour des informations du film
             $requeteModif = $pdo->prepare("
-                UPDATE film
+                UPDATE 
+                    film
                 SET 
                     titre = :titre,
                     date_sortie_france = :dateSortieFrance,
@@ -256,23 +269,26 @@ class FilmController {
                 ":id" => $id // Ajout de ce paramètre manquant
             ]);
             
-    
             // Mettre à jour les genres du film
             // Supprimer d'abord les genres existants du film
             $pdo->prepare("
-            DELETE FROM categorise 
-            WHERE id_film = :id")
-            ->execute([":id" => $id]);
+                DELETE FROM 
+                    categorise 
+                WHERE 
+                    id_film = :id")
+                ->execute([":id" => $id]);
 
             // Insérer les nouveaux genres sélectionnés
             foreach ($idGenres as $idGenre) {
                 $pdo->prepare("
-                INSERT INTO categorise (id_film, id_genre) 
-                VALUES (:id, :idGenre)")
-                ->execute([
-                    ":id" => $id,
-                    ":idGenre" => $idGenre
-                ]);
+                    INSERT INTO 
+                        categorise (id_film, id_genre) 
+                    VALUES 
+                        (:id, :idGenre)")
+                    ->execute([
+                        ":id" => $id,
+                        ":idGenre" => $idGenre
+                    ]);
             }
     
             // Redirection après la modification
@@ -284,17 +300,24 @@ class FilmController {
         require "view/Films/modifFilm.php";
     }
 
+    // supprimer un film
     public function deleteFilm($id) {
         $pdo = Connect::seConnecter();
         
+        // Supprimer les catégories associées au film
         $pdo->prepare("
-        DELETE FROM categorise 
-        WHERE id_film = :id")
-        ->execute([":id" => $id]);
+            DELETE FROM 
+                categorise 
+            WHERE 
+                id_film = :id")
+            ->execute([":id" => $id]);
         
+        // Supprimer le film de la base de données
         $requeteDelete = $pdo->prepare("
-        DELETE FROM film
-        WHERE id_film = :id
+            DELETE FROM 
+                film
+            WHERE 
+                id_film = :id
         ");
         
         $success = $requeteDelete->execute([":id" => $id]);
@@ -303,28 +326,31 @@ class FilmController {
             header("Location: index.php?action=listFilms");
             exit();
         } else {
-            // Handle error, display error message or log it
-            echo "Error occurred while updating film.";
+            // Gérer l'erreur, afficher un message d'erreur ou le journaliser
+            echo "Une erreur s'est produite lors de la suppression du film.";
         }
         
-        
+        // Inclure la vue pour afficher la confirmation de suppression du film
         require "view/Films/deleteFilm.php";
-        
     }
     
+    // attribuer un rôle à un acteur pour un film
     public function castFilm($id) {
         $pdo = Connect::seConnecter();
 
+        // Récupération des détails du film spécifié par son ID
         $requeteFilm = $pdo->prepare("
-        SELECT *
-        FROM film
-    
-        WHERE id_film = :id;
-    
+            SELECT 
+                *
+            FROM 
+                film
+            WHERE 
+                id_film = :id;
         ");
         $requeteFilm->execute([":id" => $id]);
         $film = $requeteFilm->fetch();
         
+        // Récupération de la liste des acteurs
         $requeteActeurs = $pdo->query("
             SELECT 
                 acteur.id_acteur, 
@@ -336,26 +362,28 @@ class FilmController {
         
         $acteurs = $requeteActeurs->fetchAll();
         
+        // Récupération de la liste des rôles
         $requeteRoles = $pdo->query("
-            SELECT *
-            FROM role
+            SELECT 
+                *
+            FROM 
+                role
         ");
-
-
         
         $roles = $requeteRoles->fetchAll();
         
-         
+        // Traitement du formulaire d'attribution de rôle
         if (isset($_POST["submit"])) {
             // Sanitization des entrées
-            
             $idActeur = filter_input(INPUT_POST, "idActeur", FILTER_SANITIZE_NUMBER_INT);
             $idRoles = filter_input(INPUT_POST, "idRole", FILTER_SANITIZE_NUMBER_INT);
             
-            // Mise à jour des informations du film
+            // Insertion des données dans la table "casting"
             $requeteModif = $pdo->prepare("
-            INSERT INTO casting (id_film, id_acteur, id_role)
-            VALUES (:id_film, :id_acteur, :id_role);
+                INSERT INTO 
+                    casting (id_film, id_acteur, id_role)
+                VALUES 
+                    (:id_film, :id_acteur, :id_role);
             ");
             $requeteModif->execute([
                 ":id_film" => $id,
@@ -364,11 +392,7 @@ class FilmController {
             ]);
         }
         
-      
+        // Inclure la vue pour afficher le formulaire d'attribution de rôle
         require "view/Films/castFilm.php";
     }
-        
-    
-      
-
 }
