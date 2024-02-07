@@ -186,7 +186,7 @@ class FilmController {
     public function modifFilm($id) {
         $pdo = Connect::seConnecter();
         
-        // on recupere l'acteur à modifier
+        // on recupere le film à modifier
         $requeteFilm = $pdo->prepare("
         SELECT *
         FROM film
@@ -286,19 +286,19 @@ class FilmController {
 
     public function deleteFilm($id) {
         $pdo = Connect::seConnecter();
-    
+        
         $pdo->prepare("
-            DELETE FROM categorise 
-            WHERE id_film = :id")
-            ->execute([":id" => $id]);
-
+        DELETE FROM categorise 
+        WHERE id_film = :id")
+        ->execute([":id" => $id]);
+        
         $requeteDelete = $pdo->prepare("
         DELETE FROM film
         WHERE id_film = :id
         ");
         
         $success = $requeteDelete->execute([":id" => $id]);
-
+        
         if ($success) {
             header("Location: index.php?action=listFilms");
             exit();
@@ -306,16 +306,69 @@ class FilmController {
             // Handle error, display error message or log it
             echo "Error occurred while updating film.";
         }
-
-
+        
+        
         require "view/Films/deleteFilm.php";
         
     }
     
+    public function castFilm($id) {
+        $pdo = Connect::seConnecter();
 
+        $requeteFilm = $pdo->prepare("
+        SELECT *
+        FROM film
     
+        WHERE id_film = :id;
     
-    
+        ");
+        $requeteFilm->execute([":id" => $id]);
+        $film = $requeteFilm->fetch();
         
+        $requeteActeurs = $pdo->query("
+            SELECT 
+                acteur.id_acteur, 
+                CONCAT(personne.prenom, ' ', personne.nom) AS acteur
+            FROM 
+                acteur
+            INNER JOIN 
+                personne ON acteur.id_personne = personne.id_personne");
+        
+        $acteurs = $requeteActeurs->fetchAll();
+        
+        $requeteRoles = $pdo->query("
+            SELECT *
+            FROM role
+        ");
+
+
+        
+        $roles = $requeteRoles->fetchAll();
+        
+         
+        if (isset($_POST["submit"])) {
+            // Sanitization des entrées
+            
+            $idActeur = filter_input(INPUT_POST, "idActeur", FILTER_SANITIZE_NUMBER_INT);
+            $idRoles = filter_input(INPUT_POST, "idRole", FILTER_SANITIZE_NUMBER_INT);
+            
+            // Mise à jour des informations du film
+            $requeteModif = $pdo->prepare("
+            INSERT INTO casting (id_film, id_acteur, id_role)
+            VALUES (:id_film, :id_acteur, :id_role);
+            ");
+            $requeteModif->execute([
+                ":id_film" => $id,
+                ":id_acteur" => $idActeur,
+                ":id_role" => $idRoles
+            ]);
+        }
+        
+      
+        require "view/Films/castFilm.php";
+    }
+        
+    
+      
 
 }

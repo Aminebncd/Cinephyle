@@ -51,6 +51,7 @@ $titre_secondaire = "Détails du film";
 
 <div class="container buttons">
     <a class="btn btn-outline-primary" href="index.php?action=modifFilm&id=<?= $id ?>" class="btn">Modifier le film</a>
+    <a class="btn btn-outline-success" href="index.php?action=castFilm&id=<?= $id ?>" class="btn">Ajouter un casting</a>
     <a class="btn btn-outline-danger" href="index.php?action=deleteFilm&id=<?= $id ?>" class="btn">supprimer le film</a>
 </div> 
 

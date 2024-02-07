@@ -216,10 +216,8 @@ h1 {
 .accueilCardUn,
 .accueilCardDeux,
 .accueilCardTrois {
-  /* border: 1px solid #00000000; */
   border-radius: 15px;
   position: relative;
-  /* background: #000000; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -237,9 +235,9 @@ h1 {
   transition: 0.3s ease;
 }
 
-.accueilCardUn::before,
-.accueilCardDeux::before,
-.accueilCardTrois::before {
+.accueilCardUn .filter,
+.accueilCardDeux .filter,
+.accueilCardTrois .filter {
   content: "";
   position: absolute;
   top: 0;
@@ -283,7 +281,7 @@ h1 {
   text-align: center;
   text-decoration: none;
   color: #ffffff;
-  z-index: 1; /* Place le lien au-dessus du pseudo-élément ::before */
+  z-index: 1; /* Place le lien au-dessus du pseudo-élément  .filter */
 }
 
 .accueilCardUn a:hover,

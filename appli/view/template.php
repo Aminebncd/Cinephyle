@@ -52,7 +52,7 @@
     
     <footer class="footer mt-auto py-3 text-white">
         <div class="text-center">
-            <span>AmineBncd @ ElanFormation | <a class="nav-item link" href="lien_vers_votre_reseau_1">Réseau 1</a> | <a class="nav-item link" href="lien_vers_votre_reseau_2">Réseau 2</a></span>  
+            <span>AmineBncd @ ElanFormation | <a class="nav-item link" href="https://github.com/Aminebncd">Github</a> | <a class="nav-item link" href="https://www.linkedin.com/in/mohamed-amine-bounachada-9a2819200/">Linkedin</a></span>  
         </div>
     </footer>
 
