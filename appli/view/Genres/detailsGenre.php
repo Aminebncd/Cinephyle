@@ -30,30 +30,12 @@ $libelle = $genreData['libelle'];
 </div>
 
 <div class="container buttons">
-    <a class="btn btn-outline-primary" href="index.php?action=modifGenre&id=<?= $idGenre ?>" class="btn">Modifier le genre</a>
-    <a class="btn btn-outline-danger" href="index.php?action=deleteGenre&id=<?= $idGenre ?>" class="btn">supprimer le genre</a>
+    <a class="btn btn-outline-primary" href="index.php?action=modifGenre&id=<?= $id ?>" class="btn">Modifier le genre</a>
+    <a class="btn btn-outline-danger" href="index.php?action=deleteGenre&id=<?= $id ?>" class="btn">supprimer le genre</a>
 </div> 
 
 <?php 
 $content = ob_get_clean();
 require "view/template.php";
 ?>
-
-<!-- 
-.btn {
-  background-color: #4caf50;
-  border: none; 
-  color: white; 
-  padding: 10px 20px; 
-  text-align: center; 
-  text-decoration: none; 
-  display: inline-block; 
-  font-size: 16px; 
-  border-radius: 5px; 
-  transition: background-color 0.3s;
-}
-.btn:hover {
-  background-color: #c9d2e79c; 
-  cursor: pointer; 
-} -->
 

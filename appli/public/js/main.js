@@ -63,19 +63,34 @@ function scrollFilmsNote(direction) {
   }
 }
 
-function scrollActeurs(direction) {
-  const acteursContainer = document.querySelector(".acteurContainer");
+// LIST ACTEURS
+
+function scrollActeursNom(direction) {
+  const acteursContainerNom = document.querySelector(".Nom");
   const scrollAmount = 1000;
 
   if (direction === "left") {
-    acteursContainer.scrollLeft -= scrollAmount;
+    acteursContainerNom.scrollLeft -= scrollAmount;
     console.log("ok");
   } else if (direction === "right") {
-    acteursContainer.scrollLeft += scrollAmount;
+    acteursContainerNom.scrollLeft += scrollAmount;
+    console.log("ok");
+  }
+}
+function scrollActeursDate(direction) {
+  const acteursContainerDate = document.querySelector(".Date");
+  const scrollAmount = 1000;
+
+  if (direction === "left") {
+    acteursContainerDate.scrollLeft -= scrollAmount;
+    console.log("ok");
+  } else if (direction === "right") {
+    acteursContainerDate.scrollLeft += scrollAmount;
     console.log("ok");
   }
 }
 
+// LIST REALS
 function scrollReals(direction) {
   const realsContainer = document.querySelector(".realContainer");
   const scrollAmount = 1000;

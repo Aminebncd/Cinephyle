@@ -11,8 +11,9 @@ class ActeurController {
 
         // se connete à ma base de données
         $pdo = Connect::seConnecter();
+        
         // recupere les champs voulues
-        $requete = $pdo->query("
+        $requeteNom = $pdo->query("
             SELECT
              
             id_acteur, 
@@ -20,9 +21,24 @@ class ActeurController {
             portrait
 
             FROM acteur
-
+            
             INNER JOIN personne on acteur.id_personne = personne.id_personne
-        ");
+            ORDER BY nom DESC
+            ");
+
+        $requeteDate = $pdo->query("
+            SELECT
+            
+            id_acteur, 
+            CONCAT (prenom, ' ', nom) AS nom,
+            portrait
+            
+            FROM acteur
+            
+            INNER JOIN personne on acteur.id_personne = personne.id_personne
+            ORDER BY id_acteur DESC
+            ");
+
         // inclusion de la page listActeurs
         require "view/Acteurs/listActeurs.php";
     }
@@ -135,16 +151,18 @@ class ActeurController {
         CONCAT(personne.prenom, ' ', personne.nom) AS acteur,
         personne.date_naissance
         FROM personne
-        INNER JOIN acteur ON acteur.id_personne = personne.id_personne;
+        INNER JOIN acteur ON acteur.id_personne = personne.id_personne
+        WHERE id_acteur = :id;
     
         ");
-        $requeteActeur->execute();
-        $acteurs = $requeteActeur->fetchAll();
+        $requeteActeur->execute([":id" => $id]);
+        $acteur = $requeteActeur->fetch();
+        // var_dump($acteur);
     
     
         if (isset($_POST["submit"])) {
             // Sanitize l'input
-            $acteurId = filter_input(INPUT_POST, "idActeur", FILTER_SANITIZE_NUMBER_INT);
+           
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
             $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_STRING);
             $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
@@ -162,7 +180,7 @@ class ActeurController {
                 WHERE id_personne = :id
             ");
             $requeteModif->execute([
-                ":id" => $acteurId,
+                ":id" => $id,
                 ":prenom" => $prenom,
                 ":nom" => $nom,
                 ":lien_wiki" => $lien_wiki,

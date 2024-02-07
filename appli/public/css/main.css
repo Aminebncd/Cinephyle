@@ -78,14 +78,16 @@ tr th {
  
 }
 
-
+/* 
 table {
   border: none; 
-}
-table th,
-table td {
+} */
+.table th,
+.table td {
+  display: flex;
+  justify-content: space-around;
   color: #fff;
-  border: none; 
+  border-top: 1px solid #303d51;
 }
 
 .container {
@@ -395,6 +397,7 @@ h1 {
 .afficheDet {
   max-height: 1000px;
   width: auto;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
 .detTitre {
@@ -500,11 +503,13 @@ h1 {
 .contPortrait {
   height: 500px;
   width: 450px;
+ 
 }
 
 .portraitDet {
   height: 500px;
   width: 400px;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -654,4 +659,12 @@ h1 {
 
 .choice {
   padding: 10px;
+}
+
+.modifForm{
+  flex-direction: column;
+}
+
+.label{
+  font-weight: 400;
 }

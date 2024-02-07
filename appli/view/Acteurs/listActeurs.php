@@ -8,15 +8,39 @@ $titre_secondaire = "Liste des acteurs";
 
 <h1><?= $titre_secondaire ?></h1>
 
-<p >Nombre d'acteurs répertoriés :<?= $requete->rowCount() ?> </p>
-<h2>Les stars du moment :</h2>
+<p >Nombre d'acteurs répertoriés :<?= $requeteNom->rowCount() ?> </p>
 
+<h3 class="cateFilm">Les stars du moment :</h3 class="cateFilm">
 <div class="wrapList">
-    <button class="scrollButton" onclick="scrollActeurs('left')">←</button>
-    <div class="acteurContainer">
+    <button class="scrollButton" onclick="scrollActeursNom('left')">←</button>
+    <div class="acteurContainer Nom">
         <div class="acteurList">
             <?php 
-            foreach($requete->fetchAll() as $acteur) { ?>
+            foreach($requeteNom->fetchAll() as $acteur) { ?>
+                <div class="acteurCard">
+                    <a class="link" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur']?>">
+                        
+                    <img class="afficheList" src="<?= $acteur['portrait'] ?>" alt="<?= $acteur['portrait'] ?>" > 
+                    <div class="acteurTitle">   
+                        <?= $acteur['nom']?>    
+                    </div>   
+                    
+                </div>
+            </a>
+            <?php } ?>   
+        </div>
+        
+    </div>
+    <button class="scrollButton" onclick="scrollActeursNom('right')">→</button>   
+</div>
+
+<h3 class="cateFilm">Ils viennent d'être ajoutés :</h3 class="cateFilm">
+<div class="wrapList">
+    <button class="scrollButton" onclick="scrollActeursDate('left')">←</button>
+    <div class="acteurContainer Date">
+        <div class="acteurList">
+            <?php 
+            foreach($requeteDate->fetchAll() as $acteur) { ?>
                 <div class="acteurCard">
                     <a class="link" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur']?>">
                     
@@ -29,11 +53,9 @@ $titre_secondaire = "Liste des acteurs";
             </a>
             <?php } ?>   
         </div>
+
     </div>
-    <button class="scrollButton" onclick="scrollActeurs('right')">→</button>
-
-    
-
+    <button class="scrollButton" onclick="scrollActeursDate('right')">→</button>   
 </div>
 
 

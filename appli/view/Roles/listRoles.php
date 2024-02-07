@@ -4,7 +4,7 @@ session_start();
 ob_start(); 
 
 $titre = "Cinephyle";
-$titre_secondaire = "Liste des rôles";
+$titre_secondaire = "Liste des rôles répertoriés";
 ?>
 
 <div class="container">

@@ -167,34 +167,25 @@ class GenreController {
         public function deleteGenre($id) {
             $pdo = Connect::seConnecter();
         
-            // Check if genre data is fetched successfully
-            if ($genreData) {
-                $genre = $genreData['libelle'];
-                $id = $genreData['id_genre'];
-        
-                if (isset($_POST["submit"])) {
-                    $genreModifie = filter_input(INPUT_POST, "genreModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    if ($genreModifie) {
-                        $requeteModif = $pdo->prepare("
-                            UPDATE genre
-                            SET libelle = :genreModifie
-                            WHERE id_genre = :id
-                        ");
-                        $success = $requeteModif->execute([
-                            ":id" => $id,
-                            ":genreModifie" => $genreModifie
-                        ]);
-                        if ($success) {
-                            header("Location: index.php?action=listGenres");
-                            exit();
-                        } else {
-                            echo "Error occurred while updating genre.";
-                        }
-                    }
-                }
-            } 
-    
+            $requeteDelete = $pdo->prepare("
+            DELETE FROM genre
+            WHERE id_genre = :id
+            ");
+            
+            $success = $requeteDelete->execute([":id" => $id]);
+
+            if ($success) {
+                header("Location: index.php?action=listGenres");
+                exit();
+            } else {
+                // Handle error, display error message or log it
+                echo "Error occurred while updating genre.";
+            }
+
+
             require "view/Genres/deleteGenre.php";
+            
+    
         }
         
         

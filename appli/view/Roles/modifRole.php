@@ -6,18 +6,16 @@ $titre_secondaire = "Formulaire de modification de rôle";
 
 
 
-    <div class="container">
+    <div class="container modifForm">
 
         <h1><?= $titre_secondaire ?></h1>
 
-        <form action="index.php?action=modifRole" method="POST">
+        <form action="index.php?action=modifRole&id=<?=$id?>" method="POST">
         <div class="mb-3">
-            <label for="idRole" class="form-label">Rôle à modifier :</label>
-            <select class="form-control" name="idRole"  required>
-                <?php foreach ($roles as $role) : ?>
-                    <option value="<?= $role['id_role'] ?>"><?= $role['role'] ?></option>
-                    <?php endforeach; ?>
-                </select>
+            <label for="idRole" class="form-label">Rôle à modifier :
+                <?= $role ?>
+            </label>
+    
         </div>
         <div class="mb-3">
             <label for="idRoleModifie" class="form-label">Rôle modifié :</label>

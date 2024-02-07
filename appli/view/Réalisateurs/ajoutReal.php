@@ -4,7 +4,7 @@ $titre = 'Cinephyle';
 $titre_secondaire = "Formulaire d'ajout de réalisateur";
 ?>
 
-<div class="container mb-5">
+<div class="container modifForm mb-5">
 
     <h1><?= $titre_secondaire ?></h1>
 

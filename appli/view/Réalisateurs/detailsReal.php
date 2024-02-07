@@ -16,7 +16,7 @@ $titre_secondaire = "Détail du réalisateur";
         <a href="<?= $real['lien_wiki'] ?>">lien wiki</a>
         
         <div class="corps">
-        <p><strong>date de naissance:</strong> <?= $real['date_naissance'] ?></p>
+        <p><strong>date de naissance:</strong> <?= date('d/m/Y', strtotime($real['date_naissance'])) ?></p>
         </div>
 
         <h3 class="cast">Films réalisés :</h3>
@@ -30,9 +30,13 @@ $titre_secondaire = "Détail du réalisateur";
     <?php } else { ?>
         <p>Aucun détail n'a été trouvé pour ce réalisateur.</p>
     <?php } ?>
-    
 
 </div>
+
+<div class="container buttons">
+    <a class="btn btn-outline-primary" href="index.php?action=modifReal&id=<?= $id ?>" class="btn">Modifier le réalisateur</a>
+    <a class="btn btn-outline-danger" href="index.php?action=deleteReal&id=<?= $id ?>" class="btn">supprimer le réalisateur</a>
+</div> 
 
 <?php
 

@@ -6,7 +6,7 @@ $titre_secondaire = "Détail de l'acteur";
 ?>
 <h1><?= $titre_secondaire ?></h1>
 
-<div class="acteurDetails">
+<div class="acteurDetails mb-5">
     <?php if ($requeteActeur->rowCount() > 0) {
 
         $acteur = $requeteActeur->fetch(); ?>
@@ -19,7 +19,7 @@ $titre_secondaire = "Détail de l'acteur";
             </div>
             <div class="detActCorps">
             <a href="<?= $acteur['lien_wiki'] ?>">lien wikipedia</a>
-            <p><strong>date de naissance:</strong> <?= date('m/Y', strtotime($acteur['date_naissance'])) ?></p>
+            <p><strong>date de naissance:</strong> <?= date('d/m/Y', strtotime($acteur['date_naissance'])) ?></p>
             
             <p class="cast">Rôles incarnés :</p>
 
@@ -35,6 +35,11 @@ $titre_secondaire = "Détail de l'acteur";
     
 
 </div>
+
+<div class="container buttons">
+    <a class="btn btn-outline-primary" href="index.php?action=modifActeur&id=<?= $id ?>" class="btn">Modifier l'acteur</a>
+    <a class="btn btn-outline-danger" href="index.php?action=deleteActeur&id=<?= $id ?>" class="btn">supprimer l'acteur</a>
+</div> 
 
 <?php
 

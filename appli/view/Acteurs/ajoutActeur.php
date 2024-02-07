@@ -4,7 +4,7 @@ $titre = 'Cinephyle';
 $titre_secondaire = "Formulaire d'ajout d'acteur";
 ?>
 
-<div class="container mb-5">
+<div class="container modifForm mb-5">
 
     <h1><?= $titre_secondaire ?></h1>
 
@@ -26,7 +26,7 @@ $titre_secondaire = "Formulaire d'ajout d'acteur";
         </div>
         <div class="mb-3">
             <label for="dateNaissanceActeur" class="form-label">Date de Naissance :</label>
-            <input type="text" class="form-control" name="dateNaissance" id="dateNaissanceActeur" placeholder="Format: YYYY-MM-DD" required>
+            <input type="date" class="form-control" name="dateNaissance" id="dateNaissanceActeur" required>
         </div>
         <div class="mb-3">
             <label for="portraitActeur" class="form-label">URL du Portrait :</label>

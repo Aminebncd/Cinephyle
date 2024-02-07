@@ -111,9 +111,8 @@ class RealController {
     public function modifReal($id) {
         $pdo = Connect::seConnecter();
         
-        // on recupere l'real à modifier
+        // on recupere le realisateur à modifier
         $requeteReal = $pdo->prepare("
-
         SELECT
         
         personne.id_personne,
@@ -124,17 +123,18 @@ class RealController {
         CONCAT(personne.prenom, ' ', personne.nom) AS realisateur,
         personne.date_naissance
         FROM personne
-        INNER JOIN realisateur ON realisateur.id_personne = personne.id_personne;
+        INNER JOIN realisateur ON realisateur.id_personne = personne.id_personne
+        WHERE id_real = :id;
     
         ");
-        // var_dump($requeteReal->fetchAll());die;
-        $requeteReal->execute();
-        $reals = $requeteReal->fetchAll();
+        $requeteReal->execute([":id" => $id]);
+        $realisateur = $requeteReal->fetch();
+        // var_dump($realisateur);
     
     
         if (isset($_POST["submit"])) {
             // Sanitize l'input
-            $realId = filter_input(INPUT_POST, "idReal", FILTER_SANITIZE_NUMBER_INT);
+           
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
             $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_STRING);
             $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
@@ -152,7 +152,7 @@ class RealController {
                 WHERE id_personne = :id
             ");
             $requeteModif->execute([
-                ":id" => $realId,
+                ":id" => $id,
                 ":prenom" => $prenom,
                 ":nom" => $nom,
                 ":lien_wiki" => $lien_wiki,

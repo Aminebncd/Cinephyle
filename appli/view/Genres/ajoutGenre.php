@@ -4,7 +4,7 @@ $titre = 'Cinephyle';
 $titre_secondaire = "Formulaire d'ajout de genre";
 ?>
 
-<div class="container">
+<div class="container modifForm">
     <h1><?= $titre_secondaire ?></h1>
 
     <form action="index.php?action=ajoutGenre" method="POST">

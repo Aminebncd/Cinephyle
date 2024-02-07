@@ -86,19 +86,26 @@ class RoleController {
         public function modifRole($id) {
             
             $pdo = Connect ::seConnecter();
-            $requeteRoles = $pdo->query("
+            $requeteRole = $pdo->prepare("
             SELECT 
-            
             id_role,
             role
+            FROM role
             
-            FROM role");
+            WHERE id_role = :id;
+            ");
             
-            $roles = $requeteRoles->fetchAll();
+            $role = $requeteRole->execute([":id" => $id]);
+            $roleData = $requeteRole->fetch();
+            
+            $role = $roleData['role'];
+            $id = $roleData['id_role'];
+            
+                // var_dump($role);
             
             if (isset($_POST["submit"])) {
                 // var_dump($_POST);die;
-                $roleId = filter_input(INPUT_POST, "idRole", FILTER_SANITIZE_NUMBER_INT);
+        
                 $roleModifie = filter_input(INPUT_POST, "roleModifie", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
                 if ($roleModifie) {
@@ -107,12 +114,36 @@ class RoleController {
                     SET role = :roleModifie
                     where id_role = :id
                     ");
-                    $requeteModif->execute([":id" => $roleId,
+                    $requeteModif->execute([":id" => $id,
                                 ":roleModifie" => $roleModifie]);
                     }
                     header("Location: index.php?action=listRoles");
                     exit(); 
                 }
                 require "view/roles/modifRole.php";
+            }
+            
+            public function deleteRole($id) {
+                $pdo = Connect::seConnecter();
+            
+                $requeteDelete = $pdo->prepare("
+                DELETE FROM role
+                WHERE id_role = :id
+                ");
+                
+                $success = $requeteDelete->execute([":id" => $id]);
+    
+                if ($success) {
+                    header("Location: index.php?action=listRoles");
+                    exit();
+                } else {
+                    // Handle error, display error message or log it
+                    echo "Error occurred while updating Role.";
+                }
+    
+    
+                require "view/Roles/deleteRole.php";
+                
+        
             }
 }

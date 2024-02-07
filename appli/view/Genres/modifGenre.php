@@ -8,14 +8,14 @@ $titre_secondaire = "Formulaire de modification de genre";
 
 
 
-<div class="container">
+<div class="container modifForm">
 
-<h1><?= $titre_secondaire ?></h1>
+<h1 class="mb-3"><?= $titre_secondaire ?></h1>
 
 <form action="index.php?action=modifGenre&id=<?= $id ?>" method="POST">
 
     <div class="mb-3">
-        <label for="idGenre" class="form-label">Genre à modifier :
+        <label for="idGenre" class="form-label label">Genre à modifier :
              <?= $genre?>
             </label>
     </div>
