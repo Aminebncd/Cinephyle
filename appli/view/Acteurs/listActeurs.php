@@ -1,6 +1,12 @@
 <?php
-session_start(); 
+// session_start(); 
 ob_start(); 
+
+if (isset($_SESSION['message'])) {
+    echo '<div class="alert customAlert mt-2">' . $_SESSION['message'] . '</div>';
+    unset($_SESSION['message']);
+}
+
 
 $titre = "Cinephyle";
 $titre_secondaire = "Liste des acteurs";

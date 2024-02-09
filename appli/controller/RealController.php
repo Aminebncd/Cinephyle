@@ -99,8 +99,12 @@ class RealController {
                 $requeteAjoutReal->execute([
                     ":id_personne" => $id_personne
                 ]);
-    
+
+                $_SESSION['message'] = "Réalisateur ajouté avec succès!";
                 header("Location: index.php?action=listReals");
+            } else {
+                // Gestion de l'erreur en cas d'échec de la suppression
+                $_SESSION['message'] = "Erreur lors de l'ajout.";
             }
         }
         
@@ -155,10 +159,26 @@ class RealController {
                 ":portrait" => $portrait,
                 ":date_naissance" => $date_naissance
             ]);
+
+            // Récupération des informations sur l'acteur à modifier
+            $requeteHeader = $pdo->prepare("
+            SELECT
+            id_real,
+            personne.id_personne
+            FROM personne
+            INNER JOIN realisateur ON realisateur.id_personne = personne.id_personne
+            WHERE personne.id_personne = :id
+            ");
+            $requeteHeader->execute([":id" => $id]);
+            $header = $requeteHeader->fetch();
+            // var_dump($header['id_acteur']); die;
     
             // Redirection après modification
-            header("Location: index.php?action=listReals");
+            $_SESSION['message'] = "Réalisateur modifié avec succès!";
+            header("Location: index.php?action=detailsReal&id=$header[id_real]");
             exit(); 
+        } else {
+            $_SESSION['message'] = "Erreur lors de la modification";
         }
     
         // Inclusion de la vue pour afficher le formulaire de modification de réalisateur
@@ -178,11 +198,12 @@ class RealController {
 
         if ($success) {
             // Redirection vers la liste des réalisateurs après la suppression
+            $_SESSION['message'] = "Réalisateur supprimé avec succès!";
             header("Location: index.php?action=listReals");
             exit();
         } else {
             // Gestion de l'erreur en cas d'échec de la suppression
-            echo "Error occurred while updating realisateur.";
+            $_SESSION['message'] = "Erreur lors de la suppression";
         }
 
         // Inclusion de la vue pour afficher la suppression du réalisateur

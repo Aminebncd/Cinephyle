@@ -181,7 +181,7 @@ class FilmController {
                         ":id_genre" => $id_genre
                     ]);
                 }
-                
+                $_SESSION['message'] = "Film ajouté avec succès!";
                 // Redirection vers la liste des films
                 header("Location: index.php?action=listFilms");
                 exit(); 
@@ -290,7 +290,7 @@ class FilmController {
                         ":idGenre" => $idGenre
                     ]);
             }
-    
+            $_SESSION['message'] = "Film modifié avec succès!";
             // Redirection après la modification
             header("Location: index.php?action=listFilms");
             exit(); 
@@ -311,6 +311,13 @@ class FilmController {
             WHERE 
                 id_film = :id")
             ->execute([":id" => $id]);
+
+        $pdo->prepare("
+            DELETE FROM 
+                casting 
+            WHERE 
+                id_film = :id")
+            ->execute([":id" => $id]);
         
         // Supprimer le film de la base de données
         $requeteDelete = $pdo->prepare("
@@ -323,6 +330,7 @@ class FilmController {
         $success = $requeteDelete->execute([":id" => $id]);
         
         if ($success) {
+            $_SESSION['message'] = "Film supprimé avec succès!";
             header("Location: index.php?action=listFilms");
             exit();
         } else {
@@ -378,20 +386,24 @@ class FilmController {
             $idActeur = filter_input(INPUT_POST, "idActeur", FILTER_SANITIZE_NUMBER_INT);
             $idRoles = filter_input(INPUT_POST, "idRole", FILTER_SANITIZE_NUMBER_INT);
             
-            // Insertion des données dans la table "casting"
-            $requeteModif = $pdo->prepare("
-                INSERT INTO 
-                    casting (id_film, id_acteur, id_role)
-                VALUES 
-                    (:id_film, :id_acteur, :id_role);
-            ");
-            $requeteModif->execute([
-                ":id_film" => $id,
-                ":id_acteur" => $idActeur,
-                ":id_role" => $idRoles
-            ]);
+            if ($idActeur && $idRoles && $id) {
+                // Insertion des données dans la table "casting"
+                $requeteModif = $pdo->prepare("
+                    INSERT INTO 
+                        casting (id_film, id_acteur, id_role)
+                    VALUES 
+                        (:id_film, :id_acteur, :id_role);
+                ");
+                $requeteModif->execute([
+                    ":id_film" => $id,
+                    ":id_acteur" => $idActeur,
+                    ":id_role" => $idRoles
+                ]);
+
+                $_SESSION['message'] = "Casting attribué avec succès!";
+                header("Location: index.php?action=detailsFilm&id=$id");
+            }
         }
-        
         // Inclure la vue pour afficher le formulaire d'attribution de rôle
         require "view/Films/castFilm.php";
     }

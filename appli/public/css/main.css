@@ -76,6 +76,12 @@ tr th {
   justify-content: center;
 }
 
+.customAlert {
+  background-color: #0000005b;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
 /* 
 table {
   border: none; 

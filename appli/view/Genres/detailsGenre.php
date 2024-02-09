@@ -1,12 +1,11 @@
 <?php
-session_start(); 
 ob_start(); 
-
 $titre = "Cinephyle";
 $titre_secondaire = "Liste des films contenant le genre :";
 $genreData = $requeteNomGenre->fetch();
 $idGenre = $genreData['id_genre'];
 $libelle = $genreData['libelle'];
+
 ?>
 
 <div class="container">

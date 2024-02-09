@@ -2,6 +2,10 @@
 ob_start();
 $titre = "Cinephyle";
 $titre_secondaire = "Détail de l'acteur";
+if (isset($_SESSION['message'])) {
+    echo '<div class="alert customAlert mt-2">' . $_SESSION['message'] . '</div>';
+    unset($_SESSION['message']);
+}
 
 ?>
 <h1><?= $titre_secondaire ?></h1>

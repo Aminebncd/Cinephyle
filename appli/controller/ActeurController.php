@@ -1,7 +1,7 @@
 <?php
 
 namespace Controller;
-
+session_start();
 use Model\Connect;
 
 class ActeurController {
@@ -118,9 +118,11 @@ class ActeurController {
                 $requeteAjoutActeur->execute([
                     ":id_personne" => $id_personne
                 ]);
-    
+                $_SESSION['message'] = "Acteur ajouté avec succès!";
                 // Redirection vers la liste des acteurs après l'ajout
                 header("Location: index.php?action=listActeurs");
+            } else {
+                $_SESSION['message'] = "Erreur lors de l'ajout";
             }
         }
         
@@ -135,6 +137,7 @@ class ActeurController {
         // Récupération des informations sur l'acteur à modifier
         $requeteActeur = $pdo->prepare("
         SELECT
+        id_acteur,
         personne.id_personne,
         personne.lien_wiki,
         personne.portrait,
@@ -149,6 +152,7 @@ class ActeurController {
         $requeteActeur->execute([":id" => $id]);
         $acteur = $requeteActeur->fetch();
     
+        // var_dump($acteur['id_acteur']); die;
         if (isset($_POST["submit"])) {
             // Sanitization des entrées POST
             $prenom = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_STRING);
@@ -156,7 +160,8 @@ class ActeurController {
             $lien_wiki = filter_input(INPUT_POST, "lien_wiki", FILTER_SANITIZE_URL);
             $portrait = filter_input(INPUT_POST, "portrait", FILTER_SANITIZE_URL);
             $date_naissance = filter_input(INPUT_POST, "date_naissance", FILTER_SANITIZE_STRING);
-    
+            
+            
             // Mise à jour des informations de l'acteur
             $requeteModif = $pdo->prepare("
                 UPDATE personne
@@ -176,9 +181,25 @@ class ActeurController {
                 ":date_naissance" => $date_naissance
             ]);
     
+            // Récupération des informations sur l'acteur à modifier
+            $requeteHeader = $pdo->prepare("
+            SELECT
+            id_acteur,
+            personne.id_personne
+            FROM personne
+            INNER JOIN acteur ON acteur.id_personne = personne.id_personne
+            WHERE personne.id_personne = :id
+            ");
+            $requeteHeader->execute([":id" => $id]);
+            $header = $requeteHeader->fetch();
+            // var_dump($header['id_acteur']); die;
+    
             // Redirection après modification
-            header("Location: index.php?action=listActeurs");
+            $_SESSION['message'] = "Acteur modifié avec succès!";
+            header("Location: index.php?action=detailsActeur&id=$header[id_acteur]");
             exit(); 
+        } else {
+            $_SESSION['message'] = "Erreur lors de la modification";
         }
     
         // Inclusion de la vue pour afficher le formulaire de modification d'acteur
@@ -198,12 +219,13 @@ class ActeurController {
         $success = $requeteDelete->execute([":id" => $id]);
 
         if ($success) {
+            $_SESSION['message'] = "Acteur supprimé avec succès!";
             // Redirection vers la liste des acteurs après la suppression
             header("Location: index.php?action=listActeurs");
             exit();
         } else {
             // Gestion de l'erreur en cas d'échec de la suppression
-            echo "Error occurred while updating acteur.";
+            $_SESSION['message'] = "Erreur lors de la suppression";
         }
 
         // Inclusion de la vue pour afficher la suppression de l'acteur

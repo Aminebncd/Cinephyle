@@ -69,6 +69,7 @@ class GenreController {
                 $requeteAjout->execute([":libelle" => $libelle]);
     
                 // Redirection vers la liste des genres après l'ajout
+                $_SESSION['message'] = "Genre ajouté avec succès!";
                 header("Location: index.php?action=listGenres");
             }
         }
@@ -114,17 +115,19 @@ class GenreController {
                     ]);
                     if ($success) {
                         // Redirection vers la liste des genres après la modification
+                        $_SESSION['message'] = "Genre modifié avec succès!";
                         header("Location: index.php?action=listGenres");
                         exit();
                     } else {
                         // Gestion de l'erreur en cas d'échec de la modification
-                        echo "Error occurred while updating genre.";
+                        $_SESSION['message'] = "Unez erreur est survenue lors de la modification du genre.";
+                        
                     }
                 }
             }
         } else {
             // Gestion du cas où les données du genre ne sont pas trouvées
-            echo "Genre not found.";
+            $_SESSION['message'] = "Genre non trouvé.";
             exit();
         }
         
@@ -145,11 +148,13 @@ class GenreController {
 
         if ($success) {
             // Redirection vers la liste des genres après la suppression
+            $_SESSION['message'] = "Genre supprimé avec succès!";
             header("Location: index.php?action=listGenres");
             exit();
         } else {
             // Gestion de l'erreur en cas d'échec de la suppression
-            echo "Error occurred while updating genre.";
+            $_SESSION['message'] = "Genre une erreur est survenue lors de la suppression du genre.";
+           
         }
 
         // Inclusion de la vue pour afficher la suppression du genre

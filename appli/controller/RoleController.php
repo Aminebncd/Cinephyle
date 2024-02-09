@@ -66,6 +66,7 @@ class RoleController {
                     INSERT INTO role (role) VALUES (:intitule)
                 ");
                 $requeteAjout->execute([":intitule" => $intitule]);
+                $_SESSION['message'] = "Rôle ajouté avec succès!";
                 header("Location: index.php?action=listRoles");
             }
         }
@@ -106,6 +107,7 @@ class RoleController {
                     ":roleModifie" => $roleModifie
                 ]);
             }
+            $_SESSION['message'] = "Rôle Modifié avec succès!";
             header("Location: index.php?action=listRoles");
             exit(); 
         }
@@ -125,11 +127,12 @@ class RoleController {
         $success = $requeteDelete->execute([":id" => $id]);
 
         if ($success) {
+            $_SESSION['message'] = "Rôle supprimé avec succès!";
             header("Location: index.php?action=listRoles");
             exit();
         } else {
             // Gestion de l'erreur en cas d'échec de la suppression
-            echo "Error occurred while updating Role.";
+            $_SESSION['message'] = "Une erreur est survenue lors de la suppression du rôle";
         }
 
         // Inclusion de la vue pour afficher la suppression du rôle

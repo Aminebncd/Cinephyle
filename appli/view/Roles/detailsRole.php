@@ -1,10 +1,14 @@
 
 <?php
-session_start(); 
+
 ob_start(); 
 
 $titre = "Cinephyle";
 $titre_secondaire = "Liste des interprètes pour le rôle de :";
+if (isset($_SESSION['message'])) {
+    echo '<div class="alert customAlert mt-2">' . $_SESSION['message'] . '</div>';
+    unset($_SESSION['message']);
+}
 ?>
 <div class="container">
     <h1><?= $titre_secondaire ?></h1>
