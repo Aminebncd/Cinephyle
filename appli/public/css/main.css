@@ -326,6 +326,8 @@ h1 {
 .filmCard {
   transition: 1s;
   padding: 10px;
+  /* margin: 10px;
+  width: 200px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -407,10 +409,12 @@ h1 {
 
 .checkbox {
   display: flex;
-  height: 90px;
+  height: 150px;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
 }
 
 .checkElement {
@@ -569,6 +573,17 @@ h1 {
   margin-bottom: 25px;
 }
 
+.filmoCard {
+  transition: 1s;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .afficheDetReal {
   height: 250px;
   width: 200px;
@@ -593,10 +608,11 @@ h1 {
 
 .listGenres {
   display: flex;
-  height: 250px;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
+    height: 250px;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
 }
 
 .listGenreElements {

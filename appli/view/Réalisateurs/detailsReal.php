@@ -24,7 +24,7 @@ $titre_secondaire = "Détail du réalisateur";
         <?php $films = $requeteFilmo->fetchAll(); 
             
             foreach ($films as $film) : ?>
-                <div class="filmCard">
+                <div class="filmoCard">
                     <a class="link" href="index.php?action=detailsFilm&id=<?= $film['id_film']?>">
                         <img class="afficheDetReal" src="<?= $film['affiche'] ?>" alt="<?= $film['affiche'] ?>" >    
                         <div class="titleDet"><?= $film['titre']?></div>

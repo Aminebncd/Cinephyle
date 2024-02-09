@@ -2,7 +2,7 @@
 
 // Activation de la mise en mémoire tampon pour éviter les problèmes d'affichage prématuré
 ob_start();
-
+// echo ('test');die;
 // Inclusion des contrôleurs
 use Controller\FilmController;
 use Controller\AccueilController;
@@ -13,7 +13,7 @@ use Controller\RoleController;
 
 // Autoload des classes
 spl_autoload_register(function ($class_name) {
-    include $class_name . '.php';
+    require str_replace('\\', DIRECTORY_SEPARATOR, $class_name)  . '.php';
 });
 
 // Instanciation des contrôleurs

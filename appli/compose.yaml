@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  php:
+    image: php:8.2-apache
+    container_name: php82
+    ports:
+      - 82:80
+    volumes:
+      - .:/var/www/html
+    build: 
+      context: .
+      dockerfile: Dockerfile
+  
+  db:
+    image: mysql:8.0
+    container_name: mysql80
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name : phpmyadmin
+    environment :
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: ''
+    ports:
+      - 8888:80
