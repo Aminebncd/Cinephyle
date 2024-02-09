@@ -25,7 +25,7 @@ Ce projet est une application web pour gérer une base de données de films, act
 
 1. Cloner ce dépôt de code sur votre machine locale.
 2. Importer la base de données fournie (`database.sql`) dans votre serveur MySQL.
-3. Configurer les informations de connexion à la base de données dans le fichier `config.php`.
+3. Configurer les informations de connexion à la base de données dans le fichier `connect.php`.
 4. Ouvrir l'application dans votre navigateur web.
 
 ## Utilisation
