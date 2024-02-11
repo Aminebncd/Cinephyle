@@ -1,7 +1,6 @@
 <?php
 
 namespace Controller;
-
 use Model\Connect;
 
 class FilmController {
@@ -30,7 +29,6 @@ class FilmController {
         require "view/Films/listFilms.php";
     }
     
-
     // afficher les détails d'un film
     public function detailsFilm($id) {
         $pdo = Connect::seConnecter();
@@ -66,6 +64,7 @@ class FilmController {
         // Requête pour récupérer le casting du film
         $requeteCasting = $pdo->prepare("
             SELECT 
+                id_film,
                 acteur.id_acteur,
                 CONCAT(prenom, ' ',nom) AS acteur, 
                 role,
@@ -103,7 +102,6 @@ class FilmController {
         // inclusion de la vue pour afficher les détails du film
         require "view/Films/detailsFilm.php";
     }
-
     
     // ajouter un film
     public function ajoutFilm() {
@@ -407,4 +405,38 @@ class FilmController {
         // Inclure la vue pour afficher le formulaire d'attribution de rôle
         require "view/Films/castFilm.php";
     }
+
+    public function deleteCast($id) {
+        // Connexion à la base de données
+        $pdo = Connect::seConnecter();
+        
+        // Supprimer le casting basé sur l'ID du film
+        $requeteDelete = $pdo->prepare("
+            DELETE FROM casting
+            WHERE id_film = :id
+        ");
+        
+        $success = $requeteDelete->execute([":id" => $id]);
+        
+        if ($success) {
+            $_SESSION['message'] = "Casting supprimé avec succès!";            
+            header("Location: index.php?action=detailsFilm&id=$id");
+            exit();
+        } else {
+            // Gérer l'erreur, afficher un message d'erreur ou le journaliser
+            echo "Une erreur s'est produite lors de la suppression du casting.";
+        }
+        
+        // Inclure la vue pour afficher la confirmation de suppression du film
+        require "view/Films/deleteCast.php";
+    }
+
+
+    
+    
+    
+
 }
+
+
+

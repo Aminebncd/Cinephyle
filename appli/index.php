@@ -39,6 +39,7 @@ if (isset($_GET['action'])) {
         case "modifFilm": $ctrlFilm->modifFilm($id); break;
         case "deleteFilm": $ctrlFilm->deleteFilm($id); break;
         case "castFilm": $ctrlFilm->castFilm($id); break;
+        case "deleteCast": $ctrlFilm->deleteCast($id); break;
 
         // Gestion des actions liées aux acteurs
         case "listActeurs": $ctrlActeur->listActeurs(); break;
