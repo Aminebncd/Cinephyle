@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $titre ?></title>
+    <meta name="description" content="Cinephyle - Découvrez un large catalogue de films, consultez les dernières sorties, explorez les biographies des réalisateurs et des acteurs. Restez informé sur les dernières tendances cinématographiques.">
     <link rel="stylesheet" href="public/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link

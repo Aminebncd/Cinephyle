@@ -143,13 +143,13 @@ h1 {
 }
 
 .containerUn {
+  max-width: 1200px;
   overflow: hidden;
   border-radius: 15px;
 }
 
 .scrolling-wrapper {
   display: flex;
-  /* overflow: hidden; */
   width: 100%;
   position: relative;
   transform: translateX(0%);
@@ -168,29 +168,6 @@ h1 {
   height: auto;
 }
 
-/* @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(0);
-  }
-  40% {
-    transform: translateX(-100%);
-  }
-  60% {
-    transform: translateX(-100%);
-  }
-  80% {
-    transform: translateX(-200%);
-  }
-  95% {
-    transform: translateX(-200%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-} */
 
 .scrolling-state {
   padding-top: 15px;
@@ -255,7 +232,6 @@ h1 {
     rgba(18, 42, 70, 0.63) 10%,
     rgba(5, 5, 7, 0.856) 100%
   );
-  /* transition: 0.3s ease; */
 }
 
 .accueilCardUn:hover .cardImage,
@@ -264,16 +240,6 @@ h1 {
   transform: scale(1.1);
 }
 
-/* .darkened-image {
-  background-image:
-  linear-gradient(180deg, rgba(18, 42, 70, 0.808) 0%, rgb(5, 5, 7) 100%), url(
-'https://static.cnews.fr/sites/default/files/styles/image_750_422/public/angela_weiss_643815e5e0550_0.jpg?itok=6shNtEAh');
- 
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition:  0.3s ease;
-} */
 
 .accueilCardUn a,
 .accueilCardDeux a,
@@ -296,9 +262,113 @@ h1 {
   color: #ffffff;
 }
 
-.miaou {
+/* .miaou {
   padding-top: 50px;
+} */
+
+
+.containerTrois {
+  padding-top: 150px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
+
+.àLaffiche {
+  /* width: 60%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accueilFilms {
+  display: flex;
+  flex-direction: row;
+}
+
+.accueilFilm {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+
+
+
+.accueilGenres {
+  /* width: 250px; */
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.accueilListGenres {
+  height: auto; 
+  max-height: 250px; 
+  display: flex;
+  align-items: flex-start; 
+  flex-wrap: wrap;
+  flex-direction: row; 
+  justify-content: center; 
+}
+
+.accueilListGenreElements {
+  margin: 5px; 
+}
+
+
+.accueilGenreElement {
+  font-size: 18px;
+  padding: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+.containerQuatre {
+  padding-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.àLaMode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accueilActeurs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.accueilActeur {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.accueilActeurImg {
+  margin-top: -15px;
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 
 /* +++++++++++++++++++++FILMS+++++++++++++++++++++++++++++ */
 
@@ -629,7 +699,6 @@ h1 {
 
 .genreElement {
   font-size: 18px;
-  font-weight: 500;
   padding: 15px;
 }
 

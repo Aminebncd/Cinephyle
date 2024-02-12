@@ -10,6 +10,7 @@ $titre_secondaire = "Retrouvez toutes les infos sur vos films favoris.";
     <h1 class="h1Landing"><?= $titre_secondaire ?></h1>
     <p class="pLanding">Une base de donnée tenue par des passionnés, pour des passionés.</p>
 </div>
+
 <div class="containerUn">
     <div class="scrolling-wrapper">
         <div class="scrolling-card"><img class="scrolling-img 1" src="https://www.ecranlarge.com/uploads/image/000/993/the-dark-knight-rises-photo-993749.jpg" alt="">
@@ -43,6 +44,57 @@ $titre_secondaire = "Retrouvez toutes les infos sur vos films favoris.";
         <a class="nav-link" href="index.php?action=listReals">Réalisateurs</a>
         <img class="cardImage" src="https://www.programme-tv.net/imgre/fit/~1~tel~2023~10~26~126be7ca-fd0d-489c-ad6b-77c653205d7c.jpeg/1200x600/crop-from/top/quality/80/top-10-des-meilleurs-films-de-tim-burton-et-sa-filmographie-complete.jpg" alt="">
         <div class=filter></div>
+    </div>
+</div>
+
+<div class="containerTrois">
+
+    <div class="àLaffiche">
+        <h3>A l'affiche</h3>
+        <div class="accueilFilms">
+            
+            <?php foreach($requeteFilm->fetchAll() as $film): ?>
+                <div>
+                    <a class="nav-link" href="index.php?action=detailsFilm&id=<?= $film['id_film'] ?>">
+                    <img class="accueilFilm" src="<?= $film['affiche'] ?>" alt=""></a>
+                </div>
+            <?php endforeach; ?>
+           
+        </div>
+        <div class="container mt-3"><a class="nav-link" href="index.php?action=listFilms">Plus de films à l'affiche</a></div>
+    </div>
+
+    <div class="accueilGenres">
+        <h3>Categories</h3>
+        <div class=" mb-3 accueilListGenres">
+
+            <?php foreach($requeteGenre->fetchAll() as $genre): ?>
+            <div class="accueilListGenreElements">
+                <a class="link accueilGenreElement" href="index.php?action=detailsGenre&id=<?= $genre['id_genre']?>"><?= $genre['libelle']?></a>
+            </div>
+            <?php endforeach; ?>
+
+        </div>
+        <div class="container mt-3"><a class="nav-link" href="index.php?action=listGenres">Plus de genres</a></div>
+    </div>
+
+</div>
+
+<div class="containerQuatre">
+    <div class ="àLaMode">
+        <h3>Les stars à la mode cette semaine</h3>
+        <div class="accueilActeurs">
+    
+            <?php foreach($requeteActeur->fetchAll() as $acteur): ?>
+                <div class="accueilActeur">
+                    <p><?= $acteur['acteur']?></p> 
+                <a class="nav-link" href="index.php?action=detailsActeur&id=<?= $acteur['id_acteur'] ?> ">
+                <img class="accueilActeurImg" src="<?= $acteur['portrait'] ?>" alt=""></a>
+            </div>
+            <?php endforeach; ?>
+
+        </div>
+        <div class="container mt-3"><a class="nav-link" href="index.php?action=listActeurs">Plus d'acteurs</a></div>
     </div>
 </div>
 
